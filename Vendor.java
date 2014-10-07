@@ -8,6 +8,27 @@ public class Vendor {
 	String email;
 	Status status;
 	
+	
+	
+	public Vendor() {
+		super();
+		ID = null;
+		name = null;
+		status = null;
+	}
+
+	public Vendor(Integer iD, String name, String contactName, String phone,
+			Address address, String email, Status status) {
+		super();
+		ID = iD;
+		this.name = name;
+		this.contactName = contactName;
+		this.phone = phone;
+		this.address = address;
+		this.email = email;
+		this.status = status;
+	}
+	
 	/**
 	 * @return the iD
 	 */
