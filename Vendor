@@ -6,6 +6,7 @@ public class Vendor {
 	String phone;
 	Address address;
 	String email;
+	Status status;
 	
 	/**
 	 * @return the iD
@@ -79,4 +80,17 @@ public class Vendor {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	/**
+	 * @return the status
+	 */
+	public Status getStatus() {
+		return status;
+	}
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
 }
