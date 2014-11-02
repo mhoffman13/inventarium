@@ -84,28 +84,28 @@ public final class DataRequest {
 		}
 	}
 	public static boolean insertRecord( Vendor vend ) {
-		// TODO: complete insertRecord(Vendor vend) method
+		// TODO complete insertRecord(Vendor vend) method
 	}
 	public static boolean insertRecord( Product prod ) {
-		// TO DO
+		// TODO complete insertRecord(Product prod) method
 	}
 	public static boolean insertRecord( Category cat ) {
-		// TO DO
+		// TODO complete insertRecord(Category cat) method
 	}
 	public static boolean insertRecord( Inventory inv ) {
-		// TO DO
+		// TODO complete insertRecord(Inventory inv) method
 	}
 	public static boolean updateRecord( Integer id, Vendor vend ) {
-		// TO DO
+		// TODO complete updateRecord(Integer id, Vendor vend) method
 	}
 	public static boolean updateRecord( Integer id, Product prod ) {
-		// TO DO
+		// TODO complete updateRecord(Integer id, Product prod) method
 	}
 	public static boolean updateRecord( Integer id, Category cat ) {
-		// TO DO
+		// TODO complete updateRecord(Integer id, Category cat) method
 	}
 	public static boolean updateRecord( Integer id, Inventory inv ) {
-		// TO DO
+		// TODO complete updateRecord(Integer id, Inventory inv) method
 	}
 	public static List<Object> search( searchTerm, columnName, tableName  ) {
 		List<Object> result = new ArrayList<Object>();
