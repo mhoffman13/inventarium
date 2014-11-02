@@ -1,20 +1,35 @@
 
 public class Category {
-	Integer ID;
+	Integer uniqueId;
 	String name;
 	String description;
+	EntityStatus status;
 	
 	/**
-	 * @return the iD
+	 * Constructor
+	 * @param uniqueId
+	 * @param name
+	 * @param description
+	 * @param status
 	 */
-	public Integer getID() {
-		return ID;
+	public Category(Integer uniqueId, String name, String description,
+			EntityStatus status) {
+		this.uniqueId = uniqueId;
+		this.name = name;
+		this.description = description;
+		this.status = status;
 	}
 	/**
-	 * @param iD the iD to set
+	 * @return the uniqueId
 	 */
-	public void setID(Integer iD) {
-		ID = iD;
+	public Integer getUniqueId() {
+		return uniqueId;
+	}
+	/**
+	 * @param uniqueId the uniqueId to set
+	 */
+	public void setUniqueId(Integer uniqueId) {
+		this.uniqueId = uniqueId;
 	}
 	/**
 	 * @return the name
@@ -39,5 +54,17 @@ public class Category {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	/**
+	 * @return the status
+	 */
+	public EntityStatus getStatus() {
+		return status;
+	}
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(EntityStatus status) {
+		this.status = status;
 	}
 }
