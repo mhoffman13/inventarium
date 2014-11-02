@@ -84,7 +84,7 @@ public final class DataRequest {
 		}
 	}
 	public static boolean insertRecord( Vendor vend ) {
-		// TO DO
+		// TODO: complete insertRecord(Vendor vend) method
 	}
 	public static boolean insertRecord( Product prod ) {
 		// TO DO
