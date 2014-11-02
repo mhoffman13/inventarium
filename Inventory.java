@@ -1,37 +1,63 @@
 import java.util.Date;
 
 public class Inventory {
-	Integer ID;
-	Product product;
+	Integer uniqueId;
+	Integer productId;
+	Integer vendorId;
 	Date date;
 	int adjustment;
-	int previousTotal;
-	int newTotal;
 	
 	/**
-	 * @return the iD
+	 * @param uniqueId 
+	 * @param productId
+	 * @param vendorId
+	 * @param date
+	 * @param adjustment
 	 */
-	public Integer getID() {
-		return ID;
-	}
-	/**
-	 * @param iD the iD to set
-	 */
-	public void setID(Integer iD) {
-		ID = iD;
+	public Inventory(Integer uniqueId, Integer productId, Integer vendorId, 
+			Date date, int adjustment) {
+		this.uniqueId = uniqueId;
+		this.productId = productId;
+		this.vendorId = vendorId;
+		this.date = date;
+		this.adjustment = adjustment;
 	}
 	
+	/**
+	 * @return the uniqueId
+	 */
+	public Integer getUniqueId() {
+		return uniqueId;
+	}
+	/**
+	 * @param uniqueId the uniqueId to set
+	 */
+	public void setUniqueId(Integer uniqueId) {
+		this.uniqueId = uniqueId;
+	}
 	/**
 	 * @return the product
 	 */
-	public Product getProduct() {
-		return product;
+	public Integer getProductId() {
+		return productId;
 	}
 	/**
 	 * @param product the product to set
 	 */
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setProductId(Integer productId) {
+		this.productId = productId;
+	}
+	/**
+	 * @return the vendorId
+	 */
+	public Integer getVendorId() {
+		return vendorId;
+	}
+	/**
+	 * @param vendorId the vendorId to set
+	 */
+	public void setVendorId(Integer vendorId) {
+		this.vendorId = vendorId;
 	}
 	/**
 	 * @return the date
@@ -57,29 +83,4 @@ public class Inventory {
 	public void setAdjustment(int adjustment) {
 		this.adjustment = adjustment;
 	}
-	/**
-	 * @return the previousTotal
-	 */
-	public int getPreviousTotal() {
-		return previousTotal;
-	}
-	/**
-	 * @param previousTotal the previousTotal to set
-	 */
-	public void setPreviousTotal(int previousTotal) {
-		this.previousTotal = previousTotal;
-	}
-	/**
-	 * @return the newTotal
-	 */
-	public int getNewTotal() {
-		return newTotal;
-	}
-	/**
-	 * @param newTotal the newTotal to set
-	 */
-	public void setNewTotal(int newTotal) {
-		this.newTotal = newTotal;
-	}
-	
 }
