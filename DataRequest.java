@@ -34,6 +34,10 @@ public final class DataRequest {
 			String s = in.nextLine();
 			System.exit(0);
 		}
+		// meredith:
+			// should this part of initialization just be a script we run?
+			// we wouldn't want this to ever run once the initial database
+			// setup is complete, would  we?
 		//Create tables, ignore "table already exists" errors
 		try{
 			stmt = conn.createStatement();
@@ -79,28 +83,28 @@ public final class DataRequest {
 			return;
 		}
 	}
-	public static void addVendor( Vendor vend ) {
+	public static boolean insertRecord( Vendor vend ) {
 		// TO DO
 	}
-	public static void addProduct( Product prod ) {
+	public static boolean insertRecord( Product prod ) {
 		// TO DO
 	}
-	public static void addCategory( Category cat ) {
+	public static boolean insertRecord( Category cat ) {
 		// TO DO
 	}
-	public static void addInventory( Inventory inv ) {
+	public static boolean insertRecord( Inventory inv ) {
 		// TO DO
 	}
-	public static void editVendor( Long id, Vendor vend ) {
+	public static boolean updateRecord( Integer id, Vendor vend ) {
 		// TO DO
 	}
-	public static void editProduct( Long id, Product prod ) {
+	public static boolean updateRecord( Integer id, Product prod ) {
 		// TO DO
 	}
-	public static void editCategory( Long id, Category cat ) {
+	public static boolean updateRecord( Integer id, Category cat ) {
 		// TO DO
 	}
-	public static void editInventory( Long id, Inventory inv ) {
+	public static boolean updateRecord( Integer id, Inventory inv ) {
 		// TO DO
 	}
 	public static List<Object> search( searchTerm, columnName, tableName  ) {
