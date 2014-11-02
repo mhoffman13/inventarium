@@ -1,26 +1,16 @@
 
 public class Vendor {
-	Integer ID;
+	Integer uniqueId;
 	String name;
 	String contactName;
 	String phone;
 	Address address;
 	String email;
-	Status status;
-	
-	
-	
-	public Vendor() {
-		super();
-		ID = null;
-		name = null;
-		status = null;
-	}
+	EntityStatus status;
 
-	public Vendor(Integer iD, String name, String contactName, String phone,
-			Address address, String email, Status status) {
-		super();
-		ID = iD;
+	public Vendor(Integer id, String name, String contactName, String phone,
+			Address address, String email, EntityStatus status) {
+		uniqueId = id;
 		this.name = name;
 		this.contactName = contactName;
 		this.phone = phone;
@@ -30,16 +20,16 @@ public class Vendor {
 	}
 	
 	/**
-	 * @return the iD
+	 * @return the uniqueId
 	 */
-	public Integer getID() {
-		return ID;
+	public Integer getUniqueId() {
+		return uniqueId;
 	}
 	/**
-	 * @param iD the iD to set
+	 * @param id the unqiueId to set
 	 */
-	public void setID(Integer iD) {
-		ID = iD;
+	public void setUniqueId(Integer id) {
+		uniqueId = id;
 	}
 	/**
 	 * @return the name
@@ -104,13 +94,13 @@ public class Vendor {
 	/**
 	 * @return the status
 	 */
-	public Status getStatus() {
+	public EntityStatus getStatus() {
 		return status;
 	}
 	/**
 	 * @param status the status to set
 	 */
-	public void setStatus(Status status) {
+	public void setStatus(EntityStatus status) {
 		this.status = status;
 	}
 	
