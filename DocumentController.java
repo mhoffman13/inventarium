@@ -21,11 +21,10 @@ public class DocumentController implements Initializable {
     @FXML
     private void handleVendorButton(ActionEvent event) {
         System.out.println("Vendor added");
-        //
+
         label.setText("");
     }
      private void mainStock(ActionEvent event) {//show total stock and low stock
-        
        
         label.setText("");
     }
