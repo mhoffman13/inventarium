@@ -21,7 +21,7 @@ public class DocumentController implements Initializable {
     @FXML
     private void handleVendorButton(ActionEvent event) {
         System.out.println("Vendor added");
-        //vendorLabel.setText("Hello Vendor!");
+        //
         label.setText("");
     }
      private void mainStock(ActionEvent event) {//show total stock and low stock
