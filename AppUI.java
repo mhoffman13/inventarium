@@ -10,7 +10,7 @@ public class AppUI extends Application {
     
     @Override
     public void start(Stage canv) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Document.fxml"));
         
         Scene scene = new Scene(root);
         
