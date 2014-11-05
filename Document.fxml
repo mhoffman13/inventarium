@@ -22,7 +22,7 @@
                         <Label layoutX="334.0" layoutY="314.0" text="Inventory Total">
                            <font>
                               <Font name="System Bold" size="13.0" />
-                           </font>
+                           </font> 
                         </Label>
                         <Label layoutX="441.0" layoutY="314.0" text="#" />
                         <Label layoutX="441.0" layoutY="339.0" text="#" />
