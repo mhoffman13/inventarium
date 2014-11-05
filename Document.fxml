@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="460.0" prefWidth="533.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appui.DocumentController">
+    <children>
+        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+      <TabPane layoutX="14.0" layoutY="20.0" prefHeight="431.0" prefWidth="509.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Main">
+               <content>
+                  <Pane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="334.0" layoutY="314.0" text="Inventory Total">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="441.0" layoutY="314.0" text="#" />
+                        <Label layoutX="441.0" layoutY="339.0" text="#" />
+                        <Label layoutX="334.0" layoutY="339.0" text="Low Stock">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="39.0" layoutX="205.0" layoutY="160.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
+                        <Label layoutX="235.0" layoutY="172.0" text="Trends" />
+                     </children>
+                  </Pane>
+               </content>
+            </Tab>
+          <Tab text="Inventory">
+               <content>
+                  <Pane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="378.0" layoutY="362.0" text="Low Stock" />
+                        <TableView layoutX="69.0" layoutY="83.0" prefHeight="233.0" prefWidth="372.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="Item" />
+                            <TableColumn prefWidth="75.0" text="Id" />
+                          </columns>
+                        </TableView>
+                        <Button layoutX="348.0" layoutY="51.0" mnemonicParsing="false" text="Add Product" />
+                        <Label layoutX="447.0" layoutY="362.0" prefHeight="16.0" prefWidth="12.0" text="#" />
+                     </children>
+                  </Pane>
+               </content>
+            </Tab>
+            <Tab text="Products">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab text="Vendors">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField layoutX="173.0" layoutY="84.0" />
+                        <TextField layoutX="173.0" layoutY="121.0" />
+                        <TextField layoutX="173.0" layoutY="157.0" />
+                        <TextField layoutX="173.0" layoutY="199.0" />
+                        <TextField layoutX="173.0" layoutY="241.0" />
+                        <Label layoutX="76.0" layoutY="94.0" text="Name" />
+                        <Label layoutX="76.0" layoutY="131.0" text="Number" />
+                        <Label layoutX="76.0" layoutY="167.0" text="Description" />
+                        <Label layoutX="77.0" layoutY="209.0" text="Contact" />
+                        <Label layoutX="75.0" layoutY="251.0" text="Phone" />
+                        <Label layoutX="76.0" layoutY="288.0" text="Description" />
+                        <TextField layoutX="173.0" layoutY="286.0" />
+                        <Button layoutX="392.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleVendorButton" text="Submit" />
+                        <Label layoutX="44.0" layoutY="30.0" text="Add">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab>
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="28.0" layoutY="22.0" text="Search">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <MeshView layoutX="147.0" layoutY="89.0" />
+                        <Button fx:id="button" layoutX="349.0" layoutY="283.0" onAction="#handleButtonAction" text="Search" />
+                     </children></AnchorPane>
+              </content>
+               <graphic>
+                  <MenuButton mnemonicParsing="false" text="Search">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="By Vendor" />
+                      <MenuItem id="nameSearch" mnemonicParsing="false" text="By Name" />
+                        <MenuItem mnemonicParsing="false" text="Id" />
+                    </items>
+                  </MenuButton>
+               </graphic>
+            </Tab>
+            <Tab text="Add Product">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField layoutX="173.0" layoutY="62.0" />
+                        <TextField layoutX="173.0" layoutY="103.0" />
+                        <TextField layoutX="173.0" layoutY="145.0" />
+                        <Label layoutX="87.0" layoutY="67.0" text="Name" />
+                        <Label layoutX="87.0" layoutY="108.0" text="Quantity" />
+                        <Label layoutX="87.0" layoutY="150.0" text="Vendor" />
+                        <Button layoutX="219.0" layoutY="199.0" mnemonicParsing="false" text="Save Item" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <ScrollBar layoutX="195.0" layoutY="443.0" />
+    </children>
+</AnchorPane>
