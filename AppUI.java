@@ -18,7 +18,6 @@ public class AppUI extends Application {
         canv.show();
     }
 
-
     public static void main(String[] args) {
         launch(args);
     }
