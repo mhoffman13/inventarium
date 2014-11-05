@@ -26,7 +26,7 @@ public class DocumentController implements Initializable {
     }
      private void mainStock(ActionEvent event) {//show total stock and low stock
        
-        label.setText("");
+        label.setText(""); 
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
