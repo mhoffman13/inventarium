@@ -3,7 +3,6 @@ package inventarium.entity;
 import inventarium.helper.Address;
 import inventarium.helper.EntityStatus;
 
-
 public class Vendor {
 	Integer uniqueId;
 	String name;

@@ -4,11 +4,16 @@ import inventarium.entity.Category;
 import inventarium.entity.Inventory;
 import inventarium.entity.Product;
 import inventarium.entity.Vendor;
-
-import java.sql.*;
-import java.util.Scanner;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public final class DataRequest {
 	private DataRequest() {}
 	private static Scanner in = new Scanner(System.in); // DEBUG

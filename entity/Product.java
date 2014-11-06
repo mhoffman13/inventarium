@@ -3,7 +3,6 @@ package inventarium.entity;
 import inventarium.helper.EntityStatus;
 import java.util.List;
 
-
 public class Product {
 	Integer uniqueId;
 	String name;
