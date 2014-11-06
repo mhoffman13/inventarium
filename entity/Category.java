@@ -1,3 +1,6 @@
+package inventarium.entity;
+
+import inventarium.helper.EntityStatus;
 
 public class Category {
 	Integer uniqueId;

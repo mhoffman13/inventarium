@@ -1,3 +1,4 @@
+package inventarium.helper;
 
 public class Address {
 	String line1;

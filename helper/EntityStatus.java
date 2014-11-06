@@ -1,3 +1,4 @@
+package inventarium.helper;
 
 public enum EntityStatus {
 	ACTIVE('A'),

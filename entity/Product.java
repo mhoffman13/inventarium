@@ -1,5 +1,7 @@
+package inventarium.entity;
+
+import inventarium.helper.EntityStatus;
 import java.util.List;
-import java.util.Set;
 
 
 public class Product {
@@ -10,8 +12,8 @@ public class Product {
 	String sku;
 	int quantity;
 	int lowQuantity;
-	Set <Category> categories;
-	Set <Vendor> vendors;
+	Category category;
+	Vendor vendor;
 	List <Inventory> inventories; // do we want this on the product object?
 	boolean isLow = false;
 	
@@ -44,8 +46,7 @@ public class Product {
 	 */
 	public Product(Integer uniqueId, String name, EntityStatus status,
 			String description, String sku, int quantity, int lowQuantity,
-			Set<Category> categories, Set<Vendor> vendors,
-			List<Inventory> inventories) {
+			Category category, Vendor vendor, List<Inventory> inventories) {
 		this.uniqueId = uniqueId;
 		this.name = name;
 		this.status = status;
@@ -53,8 +54,8 @@ public class Product {
 		this.sku = sku;
 		this.quantity = quantity;
 		this.lowQuantity = lowQuantity;
-		this.categories = categories;
-		this.vendors = vendors;
+		this.category = category;
+		this.vendor = vendor;
 		this.inventories = inventories;
 		this.isLow = this.isLow();
 	}
@@ -122,26 +123,26 @@ public class Product {
 	/**
 	 * @return the category
 	 */
-	public Set<Category> getCategories() {
-		return categories;
+	public Category getCategory() {
+		return category;
 	}
 	/**
 	 * @param category the category to add
 	 */
-	public void addCategory(Category category) {
-		this.categories.add(category);
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 	/**
 	 * @return the vendor
 	 */
-	public Set<Vendor> getVendors() {
-		return vendors;
+	public Vendor getVendor() {
+		return vendor;
 	}
 	/**
 	 * @param vendor the vendor to add
 	 */
-	public void addVendor(Vendor vendor) {
-		this.vendors.add(vendor);
+	public void setVendor(Vendor vendor) {
+		this.vendor = vendor;
 	}
 	/**
 	 * @return the status

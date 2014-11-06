@@ -1,3 +1,10 @@
+package inventarium.data;
+
+import inventarium.entity.Category;
+import inventarium.entity.Inventory;
+import inventarium.entity.Product;
+import inventarium.entity.Vendor;
+
 import java.sql.*;
 import java.util.Scanner;
 import java.util.List;
@@ -84,30 +91,41 @@ public final class DataRequest {
 		}
 	}
 	public static boolean insertRecord( Vendor vend ) {
+		return true;
 		// TODO complete insertRecord(Vendor vend) method
 	}
 	public static boolean insertRecord( Product prod ) {
+		return true;
 		// TODO complete insertRecord(Product prod) method
 	}
 	public static boolean insertRecord( Category cat ) {
+		return true;
 		// TODO complete insertRecord(Category cat) method
 	}
 	public static boolean insertRecord( Inventory inv ) {
+		return true;
 		// TODO complete insertRecord(Inventory inv) method
 	}
 	public static boolean updateRecord( Integer id, Vendor vend ) {
+		return true;
 		// TODO complete updateRecord(Integer id, Vendor vend) method
 	}
 	public static boolean updateRecord( Integer id, Product prod ) {
+		return true;
 		// TODO complete updateRecord(Integer id, Product prod) method
 	}
 	public static boolean updateRecord( Integer id, Category cat ) {
+		return true;
 		// TODO complete updateRecord(Integer id, Category cat) method
 	}
 	public static boolean updateRecord( Integer id, Inventory inv ) {
+		return true;
 		// TODO complete updateRecord(Integer id, Inventory inv) method
 	}
-	public static List<Object> search( searchTerm, columnName, tableName  ) {
+	public static List<Object> search( String searchTerm, String columnName, 
+			String tableName  ) throws SQLException {
+		// meredith: added throws SQLException here, may need to tweak that
+		// but eclipse was throwing up errors without it
 		List<Object> result = new ArrayList<Object>();
 		String query = "SELECT * FROM " + tableName + " WHERE " + columnName + "=" + searchTerm;
 		stmt = conn.createStatement();
@@ -115,7 +133,7 @@ public final class DataRequest {
 		ResultSetMetaData metaData = rs.getMetaData();
 		int columns = metaData.getColumnCount();
 		while (rs.next()) {
-			printMe = "";
+			String printMe = "";
 			for(int i=1; i<=columns; i++) {
 				// TO DO: create object from column values
 			}

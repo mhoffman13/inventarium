@@ -1,9 +1,10 @@
+package inventarium.entity;
+
 import java.util.Date;
 
 public class Inventory {
 	Integer uniqueId;
 	Integer productId;
-	Integer vendorId;
 	Date date;
 	int adjustment;
 	
@@ -14,11 +15,10 @@ public class Inventory {
 	 * @param date
 	 * @param adjustment
 	 */
-	public Inventory(Integer uniqueId, Integer productId, Integer vendorId, 
-			Date date, int adjustment) {
+	public Inventory(Integer uniqueId, Integer productId, Date date, 
+			int adjustment) {
 		this.uniqueId = uniqueId;
 		this.productId = productId;
-		this.vendorId = vendorId;
 		this.date = date;
 		this.adjustment = adjustment;
 	}
@@ -46,18 +46,6 @@ public class Inventory {
 	 */
 	public void setProductId(Integer productId) {
 		this.productId = productId;
-	}
-	/**
-	 * @return the vendorId
-	 */
-	public Integer getVendorId() {
-		return vendorId;
-	}
-	/**
-	 * @param vendorId the vendorId to set
-	 */
-	public void setVendorId(Integer vendorId) {
-		this.vendorId = vendorId;
 	}
 	/**
 	 * @return the date
