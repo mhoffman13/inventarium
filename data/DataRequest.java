@@ -4,6 +4,7 @@ import inventarium.entity.Category;
 import inventarium.entity.Inventory;
 import inventarium.entity.Product;
 import inventarium.entity.Vendor;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -11,8 +12,11 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public final class DataRequest {
 	private DataRequest() {}
@@ -111,21 +115,21 @@ public final class DataRequest {
 		return true;
 		// TODO complete insertRecord(Inventory inv) method
 	}
-	public static boolean updateRecord( Integer id, Vendor vend ) {
+	public static boolean updateRecord(Vendor vend) {
 		return true;
-		// TODO complete updateRecord(Integer id, Vendor vend) method
+		// TODO complete updateRecord(Vendor vend) method
 	}
-	public static boolean updateRecord( Integer id, Product prod ) {
+	public static boolean updateRecord(Product prod) {
 		return true;
-		// TODO complete updateRecord(Integer id, Product prod) method
+		// TODO complete updateRecord(Product prod) method
 	}
-	public static boolean updateRecord( Integer id, Category cat ) {
+	public static boolean updateRecord(Category cat) {
 		return true;
-		// TODO complete updateRecord(Integer id, Category cat) method
+		// TODO complete updateRecord(Category cat) method
 	}
-	public static boolean updateRecord( Integer id, Inventory inv ) {
+	public static boolean updateRecord(Inventory inv) {
 		return true;
-		// TODO complete updateRecord(Integer id, Inventory inv) method
+		// TODO complete updateRecord(Inventory inv) method
 	}
 	public static List<Object> search( String searchTerm, String columnName, 
 			String tableName  ) throws SQLException {
