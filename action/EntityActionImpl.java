@@ -16,14 +16,14 @@ import inventarium.entity.Vendor;
  * to add the new record
  */
 
-public class AddEditEntity {
+public class EntityActionImpl implements EntityAction {
 	public boolean userCancel = false;
 	private boolean isUpdate = false;
 	
 	/**
 	 * Constructor
 	 */
-	public AddEditEntity(boolean isUpdate){
+	public EntityActionImpl(boolean isUpdate){
 		this.isUpdate = isUpdate;
 	}
 	
@@ -31,6 +31,7 @@ public class AddEditEntity {
 	 * @param product
 	 * @return whether new record added
 	 */
+	@Override
 	public boolean addEditEntity(Product product){
 		String entityType = "Product";
 		String entityName = product.getName();
@@ -51,6 +52,7 @@ public class AddEditEntity {
 	 * @param vendor
 	 * @return whether new record added
 	 */
+	@Override
 	public boolean addEditEntity(Vendor vendor){
 		String entityType = "Vendor";
 		String entityName = vendor.getName();
@@ -71,6 +73,7 @@ public class AddEditEntity {
 	 * @param category
 	 * @return whether new record added
 	 */
+	@Override
 	public boolean addEditEntity(Category category){
 		String entityType = "Category";
 		String entityName = category.getName();
@@ -145,5 +148,33 @@ public class AddEditEntity {
 			default:
 				return JOptionPane.showConfirmDialog(null, message, "Confirm Action", JOptionPane.YES_NO_OPTION);
 		}
+	}
+
+	/**
+	 * @return the userCancel
+	 */
+	public boolean isUserCancel() {
+		return userCancel;
+	}
+
+	/**
+	 * @param userCancel the userCancel to set
+	 */
+	public void setUserCancel(boolean userCancel) {
+		this.userCancel = userCancel;
+	}
+
+	/**
+	 * @return the isUpdate
+	 */
+	public boolean isUpdate() {
+		return isUpdate;
+	}
+
+	/**
+	 * @param isUpdate the isUpdate to set
+	 */
+	public void setUpdate(boolean isUpdate) {
+		this.isUpdate = isUpdate;
 	}
 }
