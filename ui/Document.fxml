@@ -63,11 +63,11 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextField layoutX="173.0" layoutY="84.0" />
-                        <TextField layoutX="173.0" layoutY="121.0" />
-                        <TextField layoutX="173.0" layoutY="157.0" />
-                        <TextField layoutX="173.0" layoutY="199.0" />
-                        <TextField layoutX="173.0" layoutY="241.0" />
+                        <TextField layoutX="173.0" layoutY="84.0" fx:id="vendorName" />
+                        <TextField layoutX="173.0" layoutY="121.0" fx:id="vendorNumber" />
+                        <TextField layoutX="173.0" layoutY="157.0" fx:id="vendorDescription" />
+                        <TextField layoutX="173.0" layoutY="199.0" fx:id="vendorContact" />
+                        <TextField layoutX="173.0" layoutY="241.0" fx:id="vendorPhone" />
                         <Label layoutX="76.0" layoutY="94.0" text="Name" />
                         <Label layoutX="76.0" layoutY="131.0" text="Number" />
                         <Label layoutX="76.0" layoutY="167.0" text="Description" />

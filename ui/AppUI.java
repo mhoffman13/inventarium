@@ -1,5 +1,6 @@
 package inventarium.ui;
 
+import inventarium.data.DataRequest;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +20,7 @@ public class AppUI extends Application {
     }
 
     public static void main(String[] args) {
+    	DataRequest.initialize();
         launch(args);
     }
     

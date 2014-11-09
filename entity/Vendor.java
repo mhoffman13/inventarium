@@ -6,16 +6,18 @@ import inventarium.helper.EntityStatus;
 public class Vendor {
 	Integer uniqueId;
 	String name;
+	String description;
 	String contactName;
 	String phone;
 	Address address;
 	String email;
 	EntityStatus status;
 
-	public Vendor(Integer id, String name, String contactName, String phone,
-			Address address, String email, EntityStatus status) {
+	public Vendor(Integer id, String name, String description, String contactName, 
+			String phone, Address address, String email, EntityStatus status) {
 		uniqueId = id;
 		this.name = name;
+		this.description = description;
 		this.contactName = contactName;
 		this.phone = phone;
 		this.address = address;

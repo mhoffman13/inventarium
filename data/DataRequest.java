@@ -47,7 +47,7 @@ public final class DataRequest {
 			System.out.println("Failed to connect to database" + dbName); // DEBUG
 			e.printStackTrace();
 			System.out.print("Press Enter to exit"); // DEBUG
-			String s = in.nextLine();
+			in.nextLine();
 			System.exit(0);
 		}
 		// meredith:
