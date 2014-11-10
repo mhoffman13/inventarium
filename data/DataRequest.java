@@ -34,7 +34,7 @@ public final class DataRequest {
 				System.out.println("Failed to load DB driver"); // DEBUG
 				e.printStackTrace();
 				System.out.print("Press Enter to exit"); // DEBUG
-				String s = in.nextLine(); // DEBUG
+				in.nextLine(); // DEBUG
 				System.exit(0);
 		}
 		String connectionURL = "jdbc:derby:" + dbName + ";create=true";
@@ -47,7 +47,7 @@ public final class DataRequest {
 			System.out.println("Failed to connect to database" + dbName); // DEBUG
 			e.printStackTrace();
 			System.out.print("Press Enter to exit"); // DEBUG
-			in.nextLine();
+			in.nextLine(); // DEBUG
 			System.exit(0);
 		}
 		// meredith:
@@ -136,7 +136,7 @@ public final class DataRequest {
 		// meredith: added throws SQLException here, may need to tweak that
 		// but eclipse was throwing up errors without it
 		List<Object> result = new ArrayList<Object>();
-		String query = "SELECT * FROM " + tableName + " WHERE " + columnName + "=" + searchTerm;
+		String query = "SELECT * FROM " + tableName + " WHERE " + columnName + "='" + searchTerm + "'";
 		stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(query);
 		ResultSetMetaData metaData = rs.getMetaData();
