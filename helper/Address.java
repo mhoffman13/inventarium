@@ -3,7 +3,7 @@ package inventarium.helper;
 /**
  * @author mhoffman
  * Address class holds the address of a 
- * Vendor object in the inventory system
+ * Vendor in the inventory system
  */
 
 public class Address {
