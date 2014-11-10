@@ -1,11 +1,39 @@
 package inventarium.helper;
 
+/**
+ * @author mhoffman
+ * Address class holds the address of a 
+ * Vendor object in the inventory system
+ */
+
 public class Address {
 	String line1;
 	String line2;
 	String city;
 	String state;
 	String zip;
+	
+	/**
+	 * empty Constructor
+	 */
+	public Address(){}
+	
+	/**
+	 * Constructor
+	 * @param line1
+	 * @param line2
+	 * @param city
+	 * @param state
+	 * @param zip
+	 */
+	public Address(String line1, String line2, String city, String state,
+			String zip) {
+		this.line1 = line1;
+		this.line2 = line2;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+	}
 	/**
 	 * @return the line1
 	 */

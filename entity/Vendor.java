@@ -1,5 +1,11 @@
 package inventarium.entity;
 
+/**
+ * @author mhoffman
+ * Vendor class represents a provider
+ * of products in the inventory system
+ */
+
 import inventarium.helper.Address;
 import inventarium.helper.EntityStatus;
 
@@ -12,7 +18,23 @@ public class Vendor {
 	Address address;
 	String email;
 	EntityStatus status;
+	
+	/**
+	 * empty Constructor
+	 */
+	public Vendor(){}
 
+	/**
+	 * Constructor
+	 * @param id
+	 * @param name
+	 * @param description
+	 * @param contactName
+	 * @param phone
+	 * @param address
+	 * @param email
+	 * @param status
+	 */
 	public Vendor(Integer id, String name, String description, String contactName, 
 			String phone, Address address, String email, EntityStatus status) {
 		uniqueId = id;
@@ -49,6 +71,10 @@ public class Vendor {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	/**
+	 * @return the description
+	 */
 	public String getDescription() {
 		return description;
 	}

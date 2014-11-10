@@ -1,5 +1,11 @@
 package inventarium.entity;
 
+/**
+ * @author mhoffman
+ * Product class represents an item in the
+ * inventory system
+ */
+
 import inventarium.helper.EntityStatus;
 import java.util.List;
 
