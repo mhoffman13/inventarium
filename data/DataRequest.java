@@ -33,8 +33,6 @@ public final class DataRequest {
 		} catch (ClassNotFoundException e) {
 				System.out.println("Failed to load DB driver"); // DEBUG
 				e.printStackTrace();
-				System.out.print("Press Enter to exit"); // DEBUG
-				in.nextLine(); // DEBUG
 				System.exit(0);
 		}
 		String connectionURL = "jdbc:derby:" + dbName + ";create=true";
@@ -46,8 +44,6 @@ public final class DataRequest {
 		} catch (Throwable e) {
 			System.out.println("Failed to connect to database" + dbName); // DEBUG
 			e.printStackTrace();
-			System.out.print("Press Enter to exit"); // DEBUG
-			in.nextLine(); // DEBUG
 			System.exit(0);
 		}
 		// meredith:
@@ -58,11 +54,11 @@ public final class DataRequest {
 		try{
 			stmt = conn.createStatement();
 			stmt.execute("CREATE TABLE Category("
-				+ "id BIGINT NOT NULL PRIMARY KEY, "
+				+ "id INT NOT NULL PRIMARY KEY, "
 				+ "name VARCHAR(100), "
 				+ "description VARCHAR(200))");
 			stmt.execute("CREATE TABLE Vendor("
-				+ "id BIGINT NOT NULL PRIMARY KEY, "
+				+ "id INT NOT NULL PRIMARY KEY, "
 				+ "name VARCHAR(50), "
 				+ "status VARCHAR(10), "
 				+ "description VARCHAR(200), "
@@ -71,12 +67,11 @@ public final class DataRequest {
 				+ "address_city VARCHAR(100), "
 				+ "address_state VARCHAR(2), "
 				+ "address_zip VARCHAR(5), "
-				+ "primary_phone VARCHAR(10), "
-				+ "secondary_phone VARCHAR(10), "
+				+ "phone VARCHAR(10), "
 				+ "email VARCHAR(100), "
 				+ "contact_name VARCHAR(100))");
 			stmt.execute("CREATE TABLE Product("
-				+ "id BIGINT NOT NULL PRIMARY KEY, "
+				+ "id INT NOT NULL PRIMARY KEY, "
 				+ "name VARCHAR(100), "
 				+ "description VARCHAR(200), "
 				+ "status VARCHAR(10), "
@@ -84,24 +79,40 @@ public final class DataRequest {
 				+ "low_quantity INT, "
 				+ "is_low VARCHAR(1))");
 			stmt.execute("CREATE TABLE Inventory("
-				+ "id BIGINT NOT NULL PRIMARY KEY, "
-				+ "product_id BIGINT REFERENCES Product(id), "
-				+ "vendor_id BIGINT REFERENCES Vendor(id), "
+				+ "id INT NOT NULL PRIMARY KEY, "
+				+ "product_id INT REFERENCES Product(id), "
+				+ "vendor_id INT REFERENCES Vendor(id), "
 				+ "date VARCHAR(50), "
 				+ "adjustment INT)");
-			stmt.execute("CREATE TABLE Product_Category("
-				+ "product_id BIGINT REFERENCES Product(id), "
-				+ "category_id BIGINT REFERENCES Category(id), "
-				+ "PRIMARY KEY (product_id, category_id))");
 		} catch (SQLException e) {
 			// Ignore "table already exists" errors
-			System.out.println(e); // DEBUG
+			System.out.println(e); 
 			return;
 		}
 	}
 	public static boolean insertRecord( Vendor vend ) {
-		return true;
-		// TODO complete insertRecord(Vendor vend) method
+		try{
+			String query = "INSERT INTO Vendor VALUES ("
+					+ vend.getUniqueId() + ", '"
+					+ vend.getName() + "', '"
+					+ vend.getStatus().getEntityStatus() + "', '"
+					+ vend.getDescription() + "', '"
+					+ vend.getAddress().getLine1() + "', '"
+					+ vend.getAddress().getLine2() + "', '"
+					+ vend.getAddress().getCity() + "', '"
+					+ vend.getAddress().getState() + "', '"
+					+ vend.getAddress().getZip() + "', '"
+					+ vend.getPhone() + "', '"
+					+ vend.getEmail() + "', '"
+					+ vend.getContactName() + "')";
+			System.out.println("Executing query: " + query); 
+			stmt = conn.createStatement();
+			stmt.execute(query);
+			return true;
+		} catch (SQLException e) {
+			System.out.println(e); 
+			return false;
+		}
 	}
 	public static boolean insertRecord( Product prod ) {
 		return true;
@@ -142,11 +153,10 @@ public final class DataRequest {
 		ResultSetMetaData metaData = rs.getMetaData();
 		int columns = metaData.getColumnCount();
 		while (rs.next()) {
-			String printMe = "";
 			for(int i=1; i<=columns; i++) {
-				// TO DO: create object from column values
+				// TODO: create object from column values
 			}
-			// TO DO: add object to list
+			// TODO: add object to list
 		}
 		return result;
 	}
