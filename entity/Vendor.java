@@ -49,6 +49,15 @@ public class Vendor {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getDescription() {
+		return description;
+	}
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	/**
 	 * @return the contactName
 	 */
