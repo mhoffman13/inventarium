@@ -41,7 +41,7 @@
               <MenuItem mnemonicParsing="false" text="Add" />
                   <MenuItem mnemonicParsing="false" text="Edit" />
             </items>
-          </Menu>
+          </Menu> 
             <Menu mnemonicParsing="false" text="Categories">
                <items>
                   <MenuItem mnemonicParsing="false" text="All Categories" />
