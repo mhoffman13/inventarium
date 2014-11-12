@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="421.0" prefWidth="494.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DocumentController.inventarium.ui">
+<AnchorPane id="AnchorPane" prefHeight="421.0" prefWidth="494.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventarium.ui.DocumentController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <ScrollBar layoutX="195.0" layoutY="443.0" />
@@ -18,7 +18,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Home">
             <items>
-              <MenuItem id="exit_program" mnemonicParsing="false" onAction="#exit" text="Close" />
+              <MenuItem id="exit_program" mnemonicParsing="false" text="Close" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Inventory">
