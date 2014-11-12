@@ -20,7 +20,6 @@ import java.util.Set;
 
 public final class DataRequest {
 	private DataRequest() {}
-	private static Scanner in = new Scanner(System.in); // DEBUG
 	private static String driver = "org.apache.derby.jdbc.EmbeddedDriver";
 	private static String dbName="DB";
 	private static Connection conn = null;
@@ -29,118 +28,167 @@ public final class DataRequest {
 		//Load DB driver
 		try {
 				Class.forName(driver);
-				System.out.println("Successfully loaded DB driver"); // DEBUG
+				System.out.println("Successfully loaded DB driver");
 		} catch (ClassNotFoundException e) {
-				System.out.println("Failed to load DB driver"); // DEBUG
+				System.out.println("Failed to load DB driver");
 				e.printStackTrace();
 				System.exit(0);
 		}
 		String connectionURL = "jdbc:derby:" + dbName + ";create=true";
-		System.out.println("Attempting to connect to database " + dbName + "..."); // DEBUG
+		System.out.println("Attempting to connect to database " + dbName + "...");
 		//Connect to DB, create one if given DB doesn't exist
 		try {
 			conn = DriverManager.getConnection(connectionURL);		 
-			System.out.println("Connected to database " + dbName); // DEBUG
+			System.out.println("Connected to database " + dbName);
 		} catch (Throwable e) {
-			System.out.println("Failed to connect to database" + dbName); // DEBUG
+			System.out.println("Failed to connect to database" + dbName);
 			e.printStackTrace();
 			System.exit(0);
 		}
-		// meredith:
-			// should this part of initialization just be a script we run?
-			// we wouldn't want this to ever run once the initial database
-			// setup is complete, would  we?
-		//Create tables, ignore "table already exists" errors
-		try{
+		if(!tablesExist()) {
+			try{
+				stmt = conn.createStatement();
+				stmt.execute("CREATE TABLE Category("
+					+ "id INT NOT NULL PRIMARY KEY, "
+					+ "name VARCHAR(100), "
+					+ "description VARCHAR(200))");
+				stmt.execute("CREATE TABLE Vendor("
+					+ "id INT NOT NULL PRIMARY KEY, "
+					+ "name VARCHAR(50), "
+					+ "status VARCHAR(10), "
+					+ "description VARCHAR(200), "
+					+ "address_line1 VARCHAR(100), "
+					+ "address_line2 VARCHAR(100), "
+					+ "address_city VARCHAR(100), "
+					+ "address_state VARCHAR(2), "
+					+ "address_zip VARCHAR(5), "
+					+ "phone VARCHAR(10), "
+					+ "email VARCHAR(100), "
+					+ "contact_name VARCHAR(100))");
+				stmt.execute("CREATE TABLE Product("
+					+ "id INT NOT NULL PRIMARY KEY, "
+					+ "name VARCHAR(100), "
+					+ "description VARCHAR(200), "
+					+ "status VARCHAR(10), "
+					+ "quantity INT, "
+					+ "low_quantity INT, "
+					+ "is_low VARCHAR(1))");
+				stmt.execute("CREATE TABLE Inventory("
+					+ "id INT NOT NULL PRIMARY KEY, "
+					+ "product_id INT REFERENCES Product(id), "
+					+ "date VARCHAR(50), "
+					+ "adjustment INT)");
+			} catch (SQLException e) {
+				System.out.println(e); 
+			}
+		}
+	}
+	private static boolean tablesExist() {
+		try {
 			stmt = conn.createStatement();
-			stmt.execute("CREATE TABLE Category("
-				+ "id INT NOT NULL PRIMARY KEY, "
-				+ "name VARCHAR(100), "
-				+ "description VARCHAR(200))");
-			stmt.execute("CREATE TABLE Vendor("
-				+ "id INT NOT NULL PRIMARY KEY, "
-				+ "name VARCHAR(50), "
-				+ "status VARCHAR(10), "
-				+ "description VARCHAR(200), "
-				+ "address_line1 VARCHAR(100), "
-				+ "address_line2 VARCHAR(100), "
-				+ "address_city VARCHAR(100), "
-				+ "address_state VARCHAR(2), "
-				+ "address_zip VARCHAR(5), "
-				+ "phone VARCHAR(10), "
-				+ "email VARCHAR(100), "
-				+ "contact_name VARCHAR(100))");
-			stmt.execute("CREATE TABLE Product("
-				+ "id INT NOT NULL PRIMARY KEY, "
-				+ "name VARCHAR(100), "
-				+ "description VARCHAR(200), "
-				+ "status VARCHAR(10), "
-				+ "quantity INT, "
-				+ "low_quantity INT, "
-				+ "is_low VARCHAR(1))");
-			stmt.execute("CREATE TABLE Inventory("
-				+ "id INT NOT NULL PRIMARY KEY, "
-				+ "product_id INT REFERENCES Product(id), "
-				+ "vendor_id INT REFERENCES Vendor(id), "
-				+ "date VARCHAR(50), "
-				+ "adjustment INT)");
-		} catch (SQLException e) {
-			// Ignore "table already exists" errors
-			System.out.println(e); 
-			return;
+			stmt.execute("SELECT * FROM Product");
+			return true;
+		}
+		catch (SQLException e) {
+			return false;
 		}
 	}
 	public static boolean insertRecord( Vendor vend ) {
-		try{
-			String query = "INSERT INTO Vendor VALUES ("
-					+ vend.getUniqueId() + ", '"
-					+ vend.getName() + "', '"
-					+ vend.getStatus().getEntityStatus() + "', '"
-					+ vend.getDescription() + "', '"
-					+ vend.getAddress().getLine1() + "', '"
-					+ vend.getAddress().getLine2() + "', '"
-					+ vend.getAddress().getCity() + "', '"
-					+ vend.getAddress().getState() + "', '"
-					+ vend.getAddress().getZip() + "', '"
-					+ vend.getPhone() + "', '"
-					+ vend.getEmail() + "', '"
-					+ vend.getContactName() + "')";
+		String query = "INSERT INTO Product VALUES ("
+				+ vend.getUniqueId() + ", '"
+				+ vend.getName() + "', '"
+				+ vend.getStatus().getEntityStatus() + "', '"
+				+ vend.getDescription() + "', '"
+				+ vend.getAddress().getLine1() + "', '"
+				+ vend.getAddress().getLine2() + "', '"
+				+ vend.getAddress().getCity() + "', '"
+				+ vend.getAddress().getState() + "', '"
+				+ vend.getAddress().getZip() + "', '"
+				+ vend.getPhone() + "', '"
+				+ vend.getEmail() + "', '"
+				+ vend.getContactName() + "')";
+		return runQuery(query);
+	}
+	public static boolean insertRecord( Product prod ) {
+		String query = "INSERT INTO Vendor VALUES ("
+				+ prod.getUniqueId() + ", '"
+				+ prod.getName() + "', '"
+				+ prod.getDescription() + "', '"
+				+ prod.getStatus().getEntityStatus() + "', "
+				+ prod.getQuantity() + ", "
+				+ prod.getlowQuantity() + ", ";
+		query += prod.isLow() ? "'T'" : "'F'";
+		query += ")";
+		return runQuery(query);
+	}
+	public static boolean insertRecord( Category cat ) {
+		String query = "INSERT INTO Category VALUES ("
+				+ cat.getUniqueId() + ", '"
+				+ cat.getName() + "', '"
+				+ cat.getDescription() + "')";
+		return runQuery(query);
+	}
+	public static boolean insertRecord( Inventory inv ) {
+		String query = "INSERT INTO Inventory VALUES ("
+				+ inv.getUniqueId() + ", "
+				+ inv.getProductId() + ", '"
+				+ inv.getDate().toString() + "', "
+				+ inv.getAdjustment() + ")";
+		return runQuery(query);
+	}
+	public static boolean updateRecord(Vendor vend) {
+		String query = "UPDATE Vendor SET "
+				+ "name='" + vend.getName() + "', "
+				+ "status='" + vend.getStatus().getEntityStatus() + "', "
+				+ "description='" + vend.getDescription() + "', "
+				+ "address_line1='" + vend.getAddress().getLine1() + "', "
+				+ "address_line2='" + vend.getAddress().getLine2() + "', "
+				+ "address_city='" + vend.getAddress().getCity() + "', "
+				+ "address_state='" + vend.getAddress().getState() + "', "
+				+ "address_zip='" + vend.getAddress().getZip() + "', "
+				+ "phone='" + vend.getPhone() + "', "
+				+ "email='" + vend.getEmail() + "', "
+				+ "contact_name='" + vend.getContactName() + "' "
+				+ "WHERE id = " + vend.getUniqueId();
+		return runQuery(query);
+	}
+	public static boolean updateRecord(Product prod) {
+		String query = "UPDATE Product SET "
+				+ "name='" + prod.getName() + "', "
+				+ "description='" + prod.getDescription() + "', "
+				+ "status='" + prod.getStatus().getEntityStatus() + "', "
+				+ "quantity=" + prod.getQuantity() + ", "
+				+ "low_quantity=" + prod.getlowQuantity() + ", "
+				+ "is_low='" + (prod.isLow()?"T":"F") + "' "
+				+ "WHERE id = " + prod.getUniqueId();
+		return runQuery(query);
+	}
+	public static boolean updateRecord(Category cat) {
+		String query = "UPDATE Category SET "
+				+ "name='" + cat.getName() + "', "
+				+ "description='" + cat.getDescription() + "' "
+				+ "WHERE id = " + cat.getUniqueId();
+		return runQuery(query);
+	}
+	public static boolean updateRecord(Inventory inv) {
+		String query = "UPDATE Inventory SET "
+				+ "product_id=" + inv.getProductId() + ", "
+				+ "date='" + inv.getDate().toString() + "', "
+				+ "adjustment=" + inv.getAdjustment() + " "
+				+ "WHERE id = " + inv.getUniqueId();
+		return runQuery(query);
+	}
+	public static boolean runQuery(String query) {
+		try {
 			System.out.println("Executing query: " + query); 
 			stmt = conn.createStatement();
 			stmt.execute(query);
 			return true;
-		} catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			System.out.println(e); 
 			return false;
 		}
-	}
-	public static boolean insertRecord( Product prod ) {
-		return true;
-		// TODO complete insertRecord(Product prod) method
-	}
-	public static boolean insertRecord( Category cat ) {
-		return true;
-		// TODO complete insertRecord(Category cat) method
-	}
-	public static boolean insertRecord( Inventory inv ) {
-		return true;
-		// TODO complete insertRecord(Inventory inv) method
-	}
-	public static boolean updateRecord(Vendor vend) {
-		return true;
-		// TODO complete updateRecord(Vendor vend) method
-	}
-	public static boolean updateRecord(Product prod) {
-		return true;
-		// TODO complete updateRecord(Product prod) method
-	}
-	public static boolean updateRecord(Category cat) {
-		return true;
-		// TODO complete updateRecord(Category cat) method
-	}
-	public static boolean updateRecord(Inventory inv) {
-		return true;
-		// TODO complete updateRecord(Inventory inv) method
 	}
 	public static List<Object> search( String searchTerm, String columnName, 
 			String tableName  ) throws SQLException {
