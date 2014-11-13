@@ -10,10 +10,11 @@ import inventarium.entity.Product;
 import inventarium.entity.Vendor;
 
 /**
- * @author Meredith Hoffman
- * addEditEntity validates an entity and, if valid,
+ * @author mhoffman
+ * Implementation of the EntityAction class.
+ * This class validates an entity and, if valid,
  * sends the entity to the DataRequest class
- * to add the new record
+ * to add or update the record
  */
 
 public class EntityActionImpl implements EntityAction {

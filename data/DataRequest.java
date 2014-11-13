@@ -219,4 +219,35 @@ public final class DataRequest {
 		}
 		return result;
 	}
+	
+	public static Set<Product> search(Product product, List<String> searchTerms) throws SQLException {
+		Set<Product> results = new HashSet<Product>();
+		String query = "SELECT * FROM Product WHERE ";// + columnName + "='" + searchTerm + "'";
+		for (String term : searchTerms) {
+		    // iterate through searchTerms
+			if(term.equalsIgnoreCase("uniqueId")){
+				query += "id=" + product.getUniqueId();
+			}else if(term.equalsIgnoreCase("name")){
+				query += "name LIKE '" + product.getName() + "'";
+			}else if(term.equalsIgnoreCase("vendor")){
+				query += "vendor_id=" + product.getVendor().getUniqueId();
+			}else if(term.equalsIgnoreCase("category")){
+				query += "category_id=" + product.getCategory().getUniqueId();
+			}
+			query += " and ";
+		}
+		// remove the last stray " and "
+		query = query.substring(0, query.length() - 5);
+		stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(query);
+		ResultSetMetaData metaData = rs.getMetaData();
+		int columns = metaData.getColumnCount();
+		while (rs.next()) {
+			for(int i=1; i<=columns; i++) {
+				// TODO: create object from column values
+			}
+			// TODO: add object to list
+		}
+		return results;
+	}
 }
