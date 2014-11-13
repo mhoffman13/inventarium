@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 
 public final class DataRequest {
@@ -51,7 +50,8 @@ public final class DataRequest {
 				stmt.execute("CREATE TABLE Category("
 					+ "id INT NOT NULL PRIMARY KEY, "
 					+ "name VARCHAR(100), "
-					+ "description VARCHAR(200))");
+					+ "description VARCHAR(200), "
+					+ "status VARCHAR(10))");
 				stmt.execute("CREATE TABLE Vendor("
 					+ "id INT NOT NULL PRIMARY KEY, "
 					+ "name VARCHAR(50), "
@@ -70,13 +70,16 @@ public final class DataRequest {
 					+ "name VARCHAR(100), "
 					+ "description VARCHAR(200), "
 					+ "status VARCHAR(10), "
+					+ "sku VARCHAR(100), "
 					+ "quantity INT, "
 					+ "low_quantity INT, "
-					+ "is_low VARCHAR(1))");
+					+ "is_low VARCHAR(1), "
+					+ "category_id INT REFERENCES Category(id), "
+					+ "vendor_id INT REFERENCES Vendor(id))");
 				stmt.execute("CREATE TABLE Inventory("
 					+ "id INT NOT NULL PRIMARY KEY, "
 					+ "product_id INT REFERENCES Product(id), "
-					+ "date VARCHAR(50), "
+					+ "date DATE, "
 					+ "adjustment INT)");
 			} catch (SQLException e) {
 				System.out.println(e); 
@@ -114,9 +117,12 @@ public final class DataRequest {
 				+ prod.getUniqueId() + ", '"
 				+ prod.getName() + "', '"
 				+ prod.getDescription() + "', '"
-				+ prod.getStatus().getEntityStatus() + "', "
+				+ prod.getStatus().getEntityStatus() + "', '"
+				+ prod.getSku() + "', "
 				+ prod.getQuantity() + ", "
-				+ prod.getlowQuantity() + ", ";
+				+ prod.getlowQuantity() + ", "
+				+ prod.getCategory().getUniqueId() + ", "
+				+ prod.getVendor().getUniqueId() + ")";
 		query += prod.isLow() ? "'T'" : "'F'";
 		query += ")";
 		return runQuery(query);
@@ -125,7 +131,8 @@ public final class DataRequest {
 		String query = "INSERT INTO Category VALUES ("
 				+ cat.getUniqueId() + ", '"
 				+ cat.getName() + "', '"
-				+ cat.getDescription() + "')";
+				+ cat.getDescription() + "', '"
+				+ cat.getStatus().getEntityStatus() + "')";
 		return runQuery(query);
 	}
 	public static boolean insertRecord( Inventory inv ) {
@@ -136,7 +143,7 @@ public final class DataRequest {
 				+ inv.getAdjustment() + ")";
 		return runQuery(query);
 	}
-	public static boolean updateRecord(Vendor vend) {
+	public static boolean updateRecord( Vendor vend ) {
 		String query = "UPDATE Vendor SET "
 				+ "name='" + vend.getName() + "', "
 				+ "status='" + vend.getStatus().getEntityStatus() + "', "
@@ -152,25 +159,29 @@ public final class DataRequest {
 				+ "WHERE id = " + vend.getUniqueId();
 		return runQuery(query);
 	}
-	public static boolean updateRecord(Product prod) {
+	public static boolean updateRecord( Product prod ) {
 		String query = "UPDATE Product SET "
 				+ "name='" + prod.getName() + "', "
 				+ "description='" + prod.getDescription() + "', "
 				+ "status='" + prod.getStatus().getEntityStatus() + "', "
+				+ "sku='" + prod.getSku() + "', "
 				+ "quantity=" + prod.getQuantity() + ", "
 				+ "low_quantity=" + prod.getlowQuantity() + ", "
-				+ "is_low='" + (prod.isLow()?"T":"F") + "' "
+				+ "is_low='" + (prod.isLow()?"T":"F") + "', "
+				+ "category_id=" + prod.getCategory().getUniqueId() + ", "
+				+ "vendor_id=" + prod.getVendor().getUniqueId() + " "
 				+ "WHERE id = " + prod.getUniqueId();
 		return runQuery(query);
 	}
-	public static boolean updateRecord(Category cat) {
+	public static boolean updateRecord( Category cat ) {
 		String query = "UPDATE Category SET "
 				+ "name='" + cat.getName() + "', "
-				+ "description='" + cat.getDescription() + "' "
+				+ "description='" + cat.getDescription() + "', "
+				+ "status='" + cat.getStatus().getEntityStatus() + "' "
 				+ "WHERE id = " + cat.getUniqueId();
 		return runQuery(query);
 	}
-	public static boolean updateRecord(Inventory inv) {
+	public static boolean updateRecord( Inventory inv ) {
 		String query = "UPDATE Inventory SET "
 				+ "product_id=" + inv.getProductId() + ", "
 				+ "date='" + inv.getDate().toString() + "', "
@@ -178,7 +189,7 @@ public final class DataRequest {
 				+ "WHERE id = " + inv.getUniqueId();
 		return runQuery(query);
 	}
-	public static boolean runQuery(String query) {
+	public static boolean runQuery( String query ) {
 		try {
 			System.out.println("Executing query: " + query); 
 			stmt = conn.createStatement();
