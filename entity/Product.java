@@ -102,6 +102,18 @@ public class Product {
 		this.description = description;
 	}
 	/**
+	 * @return the sku
+	 */
+	public String getSku() {
+		return sku;
+	}
+	/**
+	 * @param sku the sku to set
+	 */
+	public void setSku(String sku) {
+		this.sku = sku;
+	}
+	/**
 	 * @return the quantity
 	 */
 	public int getQuantity() {
