@@ -226,14 +226,27 @@ public final class DataRequest {
 		String query = "SELECT * FROM Product WHERE ";// + columnName + "='" + searchTerm + "'";
 		for (String term : searchTerms) {
 		    // iterate through searchTerms
+			// Alex: We might not use all of these, but it won't hurt to have them here.
 			if(term.equalsIgnoreCase("uniqueId")){
 				query += "id=" + product.getUniqueId();
 			}else if(term.equalsIgnoreCase("name")){
 				query += "name LIKE '" + product.getName() + "'";
+			}else if(term.equalsIgnoreCase("status")){
+				query += "status='" + product.getStatus().getEntityStatus() + "'";
+			}else if(term.equalsIgnoreCase("description")){
+				query += "description LIKE '" + product.getDescription() + "'";
+			}else if(term.equalsIgnoreCase("sku")){
+				query += "sku LIKE '" + product.getSku() + "'";
+			}else if(term.equalsIgnoreCase("quantity")){
+				query += "quantity=" + product.getQuantity();
+			}else if(term.equalsIgnoreCase("lowQuantity")){
+				query += "low_quantity=" + product.getlowQuantity();
 			}else if(term.equalsIgnoreCase("vendor")){
 				query += "vendor_id=" + product.getVendor().getUniqueId();
 			}else if(term.equalsIgnoreCase("category")){
 				query += "category_id=" + product.getCategory().getUniqueId();
+			}else if(term.equalsIgnoreCase("isLow")){
+				query += "is_low=" + (product.isLow() ? 1 : 0);
 			}
 			query += " and ";
 		}
@@ -241,75 +254,52 @@ public final class DataRequest {
 		query = query.substring(0, query.length() - 5);
 		stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(query);
-		// Product fields
-		Integer prodId;
-		String prodName;
-		EntityStatus prodStatus;
-		String prodDescription;
-		String prodSku;
-		int prodQuantity;
-		int prodLowQuantity;
 		Category prodCategory;
 		Vendor prodVendor;
-		// Category fields
 		ResultSet catRs;
-		Integer catId;
-		String catName;
-		String catDescription;
-		EntityStatus catStatus;
-		// Vendor fields
 		ResultSet vendRs;
-		Integer vendId;
-		String vendName;
-		String vendDescription;
-		String vendContactName;
-		String vendPhone;
 		Address vendAddress;
-		String vendEmail;
-		EntityStatus vendStatus;
-		// Address fields
-		String line1;
-		String line2;
-		String city;
-		String state;
-		String zip;
+		Product productResult;
 		while(rs.next()){
-			prodId = Integer.valueOf(rs.getInt("id"));
-			prodName = rs.getString("name");
-			prodStatus = rs.getString("status").equals("A") ? EntityStatus.ACTIVE : EntityStatus.ARCHIVED;
-			prodDescription = rs.getString("description");
-			prodSku = rs.getString("sku");
-			prodQuantity = rs.getInt("quantity");
-			prodLowQuantity = rs.getInt("low_quantity");
-			// Fetch product's category
-			query = "SELECT * FROM Category WHERE id = " + rs.getInt("category_id");
-			catRs = stmt.executeQuery(query);
-			catId = Integer.valueOf(catRs.getInt("id"));
-			catName = catRs.getString("name");
-			catDescription = catRs.getString("description");
-			catStatus = catRs.getString("status").equals("A") ? EntityStatus.ACTIVE : EntityStatus.ARCHIVED;
-			prodCategory = new Category(catId, catName, catDescription, catStatus);
 			// Fetch product's vendor
 			query = "SELECT * FROM Category WHERE id = " + rs.getInt("vendor_id");
 			vendRs = stmt.executeQuery(query);
-			vendId = Integer.valueOf(vendRs.getInt("id"));
-			vendName = vendRs.getString("name");
-			vendDescription = vendRs.getString("description");
-			vendContactName = vendRs.getString("contact_name");
-			vendPhone = vendRs.getString("phone");
-			line1 = vendRs.getString("address_line1");
-			line2 = vendRs.getString("address_line2");
-			city = vendRs.getString("address_city");
-			state = vendRs.getString("address_state");
-			zip = vendRs.getString("address_zip");
-			vendAddress = new Address(line1, line2, city, state, zip);
-			vendEmail = vendRs.getString("email");
-			vendStatus = vendRs.getString("status").equals("A") ? EntityStatus.ACTIVE : EntityStatus.ARCHIVED;
-			prodVendor = new Vendor(vendId, vendName, vendDescription, vendContactName, 
-					vendPhone, vendAddress, vendEmail, vendStatus);
-			// TODO:Currently passes null for inventory list
-			results.add(new Product(prodId, prodName, prodStatus, prodDescription, prodSku, 
-					prodQuantity, prodLowQuantity, prodCategory, prodVendor, null));
+			vendAddress = new Address(
+					vendRs.getString("address_line1"),
+					vendRs.getString("address_line2"),
+					vendRs.getString("address_city"),
+					vendRs.getString("address_state"),
+					vendRs.getString("address_zip"));
+			prodVendor = new Vendor(
+					Integer.valueOf(vendRs.getInt("id")),
+					vendRs.getString("name"),
+					vendRs.getString("description"),
+					vendRs.getString("contact_name"), 
+					vendRs.getString("phone"), 
+					vendAddress, 
+					vendRs.getString("email"), 
+					vendRs.getString("status").equals("A") ? EntityStatus.ACTIVE : EntityStatus.ARCHIVED);
+			// Fetch product's category
+			query = "SELECT * FROM Category WHERE id = " + rs.getInt("category_id");
+			catRs = stmt.executeQuery(query);
+			prodCategory = new Category(
+					Integer.valueOf(catRs.getInt("id")),
+					catRs.getString("name"),
+					catRs.getString("description"),
+					catRs.getString("status").equals("A") ? EntityStatus.ACTIVE : EntityStatus.ARCHIVED);
+			// Build product
+			productResult = new Product(
+					Integer.valueOf(rs.getInt("id")),
+					rs.getString("name"),
+					rs.getString("status").equals("A") ? EntityStatus.ACTIVE : EntityStatus.ARCHIVED,
+					rs.getString("description"),
+					rs.getString("sku"),
+					rs.getInt("quantity"),
+					rs.getInt("low_quantity"),
+					prodCategory,
+					prodVendor,
+					null); // TODO: passes null for inventory list
+			results.add(productResult);
 		}
 		return results;
 	}
