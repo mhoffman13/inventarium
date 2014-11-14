@@ -75,7 +75,7 @@ public final class DataRequest {
 					+ "sku VARCHAR(100), "
 					+ "quantity INT, "
 					+ "low_quantity INT, "
-					+ "is_low BOOLEAN, "
+					+ "is_low SMALLINT, "
 					+ "category_id INT REFERENCES Category(id), "
 					+ "vendor_id INT REFERENCES Vendor(id))");
 				stmt.execute("CREATE TABLE Inventory("
@@ -125,7 +125,7 @@ public final class DataRequest {
 				+ prod.getlowQuantity() + ", "
 				+ prod.getCategory().getUniqueId() + ", "
 				+ prod.getVendor().getUniqueId() + ", "
-				+ String.valueOf(prod.isLow()) + ")";
+				+ (prod.isLow() ? 1 : 0) + ")";
 		return runQuery(query);
 	}
 	public static boolean insertRecord( Category cat ) {
@@ -168,7 +168,7 @@ public final class DataRequest {
 				+ "sku='" + prod.getSku() + "', "
 				+ "quantity=" + prod.getQuantity() + ", "
 				+ "low_quantity=" + prod.getlowQuantity() + ", "
-				+ "is_low=" + String.valueOf(prod.isLow()) + ", "
+				+ "is_low=" + (prod.isLow() ? 1 : 0) + ", "
 				+ "category_id=" + prod.getCategory().getUniqueId() + ", "
 				+ "vendor_id=" + prod.getVendor().getUniqueId() + " "
 				+ "WHERE id = " + prod.getUniqueId();
@@ -251,7 +251,6 @@ public final class DataRequest {
 		int prodLowQuantity;
 		Category prodCategory;
 		Vendor prodVendor;
-		boolean prodIsLow;
 		// Category fields
 		ResultSet catRs;
 		Integer catId;
@@ -282,7 +281,6 @@ public final class DataRequest {
 			prodSku = rs.getString("sku");
 			prodQuantity = rs.getInt("quantity");
 			prodLowQuantity = rs.getInt("low_quantity");
-			prodIsLow = rs.getBoolean("is_low");
 			// Fetch product's category
 			query = "SELECT * FROM Category WHERE id = " + rs.getInt("category_id");
 			catRs = stmt.executeQuery(query);
