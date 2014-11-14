@@ -15,7 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 
-public class DocumentController implements Initializable {
+public class UIListener implements Initializable {
     
     @FXML private Label label;
     @FXML private Label vendorLabel;
@@ -55,7 +55,7 @@ public class DocumentController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
+
     }    
     
 }
