@@ -45,7 +45,7 @@ public class AppUI extends Application {
     }
 
     public static void main(String[] args) {
-//    	DataRequest.initialize();
+    	DataRequest.initialize();
         launch(args);
     }
     
