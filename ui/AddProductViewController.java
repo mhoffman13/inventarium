@@ -1,8 +1,11 @@
 //Variables on AddProductView are controlled here
 package inventarium.ui;
 
+import inventarium.entity.Product;
+
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,8 +23,9 @@ public class AddProductViewController implements Initializable {
     
    @FXML
    private void handleSaveButton(ActionEvent event) {//method is used when 'Save Item' button is used. It gets text from the Textfields
-        
-        productName.getText();
+        Product product = new Product();
+        product.setName(productName.getText());
+        System.out.println(product.getName());
         productQuantity.getText();
         productVendor.getText();
         productNumber.getText();
@@ -33,5 +37,4 @@ public class AddProductViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
     }    
-    
 }
