@@ -10,42 +10,52 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<MenuBar prefHeight="29.0" prefWidth="800.0">
-	<menus>
-		<Menu mnemonicParsing="false" text="Main" id="mainView"/>
-		<Menu mnemonicParsing="false" text="Reports">
-			<items>
-				<MenuItem mnemonicParsing="false" text="All Product Inventory" id="allInventory" />
-				<MenuItem mnemonicParsing="false" text="Single Product Inventory" id="singleInventory" />
-				<MenuItem mnemonicParsing="false" text="Filter Inventory By..." id="filterInventory" />
-				<MenuItem mnemonicParsing="false" text="Inventory Analysis" id="inventoryAnalysis" />
-				<MenuItem mnemonicParsing="false" text="Low Stock Inventory" id="lowStock" />
-			</items>
-		</Menu>
-		<Menu mnemonicParsing="false" text="Products">
-			<items>
-				<MenuItem mnemonicParsing="false" text="View All Products" id="viewAllProducts"/>
-				<MenuItem mnemonicParsing="false" text="Find Product" id="findProduct"/>
-				<MenuItem mnemonicParsing="false" text="New Product" id="newProduct"/>
-				<MenuItem mnemonicParsing="false" text="Edit Product" id="editProduct"/>
-				<MenuItem mnemonicParsing="false" text="Update Quantity" id="updateQuantity"/>
-			</items>
-		</Menu>
-		<Menu mnemonicParsing="false" text="Vendors">
-			<items>
-				<MenuItem mnemonicParsing="false" text="View All Vendors" id="viewAllVendors"/>
-				<MenuItem mnemonicParsing="false" text="Find Vendor" id="findVendor"/>
-				<MenuItem mnemonicParsing="false" text="New Vendor" id="newVendor"/>
-				<MenuItem mnemonicParsing="false" text="Edit Vendor" id="editVendor"/>
-			</items>
-		</Menu>
-		<Menu mnemonicParsing="false" text="Categories">
-			<items>
-				<MenuItem mnemonicParsing="false" text="View All Categories" id="viewAllCategories"/>
-				<MenuItem mnemonicParsing="false" text="Find Category" id="findCategory"/>
-				<MenuItem mnemonicParsing="false" text="New Category" id="newCategory"/>
-				<MenuItem mnemonicParsing="false" text="Edit Category" id="editCategory"/>
-			</items>
-		</Menu>
-	</menus>
-</MenuBar>
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventarium.ui.UIListener">
+    <children>
+        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+      <MenuBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="29.0" prefWidth="800.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Home">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Reports">
+               <items>
+                  <MenuItem id="allInventory" mnemonicParsing="false" text="All Product Inventory" />
+                  <MenuItem id="singleInventory" mnemonicParsing="false" text="Single Product Inventory" />
+                  <MenuItem id="filterInventory" mnemonicParsing="false" text="Filter Inventory By..." />
+                  <MenuItem id="inventoryAnalysis" mnemonicParsing="false" text="Inventory Analysis" />
+                  <MenuItem id="lowStock" mnemonicParsing="false" text="Low Stock Inventory" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Products">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="View All Products" />
+                  <MenuItem id="updateQuantity" mnemonicParsing="false" text="Find Product" />
+                  <MenuItem mnemonicParsing="false" onAction="#addProduct" text="New Product" />
+                  <MenuItem id="editProduct" mnemonicParsing="false" text="Edit Product" />
+                  <MenuItem id="findProduct" mnemonicParsing="false" text="Update Quantity" />
+               </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Vendors">
+            <items>
+                  <MenuItem id="viewAllVendors" mnemonicParsing="false" text="View All Vendors" />
+                  <MenuItem id="findVendor" mnemonicParsing="false" text="Find Vendor" />
+              <MenuItem mnemonicParsing="false" onAction="#addVendor" text="New Vendor" />
+                  <MenuItem id="editVendor" mnemonicParsing="false" text="Edit Vendor" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Categories">
+               <items>
+                  <MenuItem id="viewAllCategories" mnemonicParsing="false" text="View All Categories" />
+                  <MenuItem id="findCategory" mnemonicParsing="false" text="Find Category" />
+                  <MenuItem id="newCategory" mnemonicParsing="false" text="New Category" />
+                  <MenuItem id="editCategory" mnemonicParsing="false" text="Edit Category" />
+               </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+      <Pane fx:id="pagePane" layoutX="104.0" layoutY="69.0" prefHeight="510.0" prefWidth="542.0" />
+    </children>
+</AnchorPane>
