@@ -8,6 +8,7 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import inventarium.ui.components.*?>
 
 <AnchorPane id="AnchorPane" prefHeight="363.0" prefWidth="479.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventarium.ui.AddProductViewController">
    <children>
@@ -45,7 +46,7 @@
                   <Label text="Vendor" GridPane.rowIndex="2" />
                   <TextField fx:id="productVendor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label text="Quantity" GridPane.rowIndex="1" />
-                  <TextField fx:id="productQuantity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <NumericTextField fx:id="productQuantity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Name" />
                   <TextField fx:id="productName" GridPane.columnIndex="1" />
                </children>
