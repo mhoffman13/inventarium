@@ -23,6 +23,11 @@ public class Product {
 	boolean isLow = false;
 	
 	/**
+	 * Empty Constructor
+	 */
+	public Product(){}
+	
+	/**
 	 * Constructor
 	 * @param uniqueId
 	 * @param name
