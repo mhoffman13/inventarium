@@ -261,7 +261,7 @@ public final class DataRequest {
 		Product productResult;
 		while(rs.next()){
 			// Fetch product's vendor
-			query = "SELECT * FROM Category WHERE id = " + rs.getInt("vendor_id");
+			query = "SELECT * FROM Vendor WHERE id = " + rs.getInt("vendor_id");
 			vendRs = stmt.executeQuery(query);
 			vendAddress = new Address(
 					vendRs.getString("address_line1"),
@@ -297,8 +297,58 @@ public final class DataRequest {
 					rs.getInt("low_quantity"),
 					prodCategory,
 					prodVendor,
-					null); // TODO: passes null for inventory list
+					null); // TODO: pass product's inventory list
 			results.add(productResult);
+		}
+		return results;
+	}
+	public static Set<Vendor> search(Vendor vendor, List<String> searchTerms) throws SQLException {
+		Set<Vendor> results = new HashSet<Vendor>();
+		String query = "SELECT * FROM Vendor WHERE ";
+		for (String term : searchTerms) {
+		    // iterate through searchTerms
+			if(term.equalsIgnoreCase("uniqueId")){
+				query += "id=" + vendor.getUniqueId();
+			}else if(term.equalsIgnoreCase("name")){
+				query += "name LIKE '" + vendor.getName() + "'";
+			}else if(term.equalsIgnoreCase("description")){
+				query += "description LIKE '" + vendor.getDescription() + "'";
+			}else if(term.equalsIgnoreCase("contactName")){
+				query += "contact_name LIKE '" + vendor.getContactName() + "'";
+			}else if(term.equalsIgnoreCase("phone")){
+				query += "phone='" + vendor.getPhone() + "'";
+			}else if(term.equalsIgnoreCase("email")){
+				query += "email LIKE '" + vendor.getDescription() + "'";
+			}else if(term.equalsIgnoreCase("status")){
+				query += "status='" + vendor.getStatus().getEntityStatus() + "'";
+			}
+			query += " and ";
+		}
+		// remove the last stray " and "
+		query = query.substring(0, query.length() - 5);
+		stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(query);
+		Address address;
+		Vendor vendorResult;
+		while(rs.next()){
+			// Build vendor's address
+			address = new Address(
+					rs.getString("address_line1"),
+					rs.getString("address_line2"),
+					rs.getString("address_city"),
+					rs.getString("address_state"),
+					rs.getString("address_zip"));
+			// Build vendor
+			vendorResult = new Vendor(
+					Integer.valueOf(rs.getInt("id")),
+					rs.getString("name"),
+					rs.getString("description"),
+					rs.getString("contact_name"),
+					rs.getString("phone"),
+					address,
+					rs.getString("email"),
+					rs.getString("status").equals("A") ? EntityStatus.ACTIVE : EntityStatus.ARCHIVED);
+			results.add(vendorResult);
 		}
 		return results;
 	}
