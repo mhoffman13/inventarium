@@ -1,5 +1,12 @@
 package inventarium.entity;
 
+/**
+ * @author mhoffman
+ * Category class represents a category
+ * by which products in the system are
+ * organized
+ */
+
 import inventarium.helper.EntityStatus;
 
 public class Category {
