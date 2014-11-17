@@ -10,6 +10,10 @@ public class Category {
 	
 	/**
 	 * Constructor
+	 */
+	public Category() {}
+	/**
+	 * Constructor
 	 * @param uniqueId
 	 * @param name
 	 * @param description
@@ -22,6 +26,7 @@ public class Category {
 		this.description = description;
 		this.status = status;
 	}
+	
 	/**
 	 * @return the uniqueId
 	 */
