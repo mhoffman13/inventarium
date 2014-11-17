@@ -100,7 +100,7 @@ public final class DataRequest {
 		}
 	}
 	public static boolean insertRecord( Vendor vend ) {
-		String query = "INSERT INTO Product (name, status, description, address_line1, address_line2, "
+		String query = "INSERT INTO Vendor (name, status, description, address_line1, address_line2, "
 				+ "address_city, address_state, address_zip, phone, email, contact_name) VALUES ('"
 				+ vend.getName() + "', '"
 				+ vend.getStatus().getEntityStatus() + "', '"
@@ -116,7 +116,7 @@ public final class DataRequest {
 		return runQuery(query);
 	}
 	public static boolean insertRecord( Product prod ) {
-		String query = "INSERT INTO Vendor (name, description, status, sku, quantity, "
+		String query = "INSERT INTO Product (name, description, status, sku, quantity, "
 				+ "low_quantity, category_id, vendor_id, is_low ) VALUES ('"
 				+ prod.getName() + "', '"
 				+ prod.getDescription() + "', '"
