@@ -28,12 +28,12 @@ public final class DataRequest {
 	public static void initialize(){
 		//Load DB driver
 		try {
-				Class.forName(driver);
-				System.out.println("Successfully loaded DB driver");
+			Class.forName(driver);
+			System.out.println("Successfully loaded DB driver");
 		} catch (ClassNotFoundException e) {
-				System.out.println("Failed to load DB driver");
-				e.printStackTrace();
-				System.exit(0);
+			System.out.println("Failed to load DB driver");
+			e.printStackTrace();
+			System.exit(0);
 		}
 		String connectionURL = "jdbc:derby:" + dbName + ";create=true";
 		System.out.println("Attempting to connect to database " + dbName + "...");
@@ -251,6 +251,7 @@ public final class DataRequest {
 		}
 		// remove the last stray " and "
 		query = query.substring(0, query.length() - 5);
+		System.out.println("Executing query: " + query); 
 		stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(query);
 		Category prodCategory;
@@ -326,6 +327,7 @@ public final class DataRequest {
 		}
 		// remove the last stray " and "
 		query = query.substring(0, query.length() - 5);
+		System.out.println("Executing query: " + query); 
 		stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(query);
 		Address address;
@@ -350,6 +352,16 @@ public final class DataRequest {
 					rs.getString("status").equals("A") ? EntityStatus.ACTIVE : EntityStatus.ARCHIVED);
 			results.add(vendorResult);
 		}
+		return results;
+	}
+	public static Set<Category> search(Category category) {
+		Set<Category> results = new HashSet<Category>();
+		// TODO: finish search(Category)
+		return results;
+	}
+	public static List<Inventory> search(Inventory inventory) {
+		List<Inventory> results = new ArrayList<Inventory>();
+		// TODO: finish search(Inventory)
 		return results;
 	}
 }
