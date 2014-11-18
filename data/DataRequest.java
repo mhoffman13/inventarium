@@ -8,6 +8,7 @@ import inventarium.helper.Address;
 import inventarium.helper.EntityStatus;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -354,14 +355,68 @@ public final class DataRequest {
 		}
 		return results;
 	}
-	public static Set<Category> search(Category category) {
+	public static Set<Category> search(Category category, List<String> searchTerms) throws SQLException {
 		Set<Category> results = new HashSet<Category>();
-		// TODO: finish search(Category)
+		String query = "SELECT * FROM Category WHERE ";
+		for (String term : searchTerms) {
+		    // iterate through searchTerms
+			if(term.equalsIgnoreCase("uniqueId")){
+				query += "id=" + category.getUniqueId();
+			}else if(term.equalsIgnoreCase("name")){
+				query += "name LIKE '" + category.getName() + "'";
+			}else if(term.equalsIgnoreCase("description")){
+				query += "description LIKE '" + category.getDescription() + "'";
+			}else if(term.equalsIgnoreCase("status")){
+				query += "status='" + category.getStatus().getEntityStatus() + "'";
+			}
+			query += " and ";
+		}
+		// remove the last stray " and "
+		query = query.substring(0, query.length() - 5);
+		System.out.println("Executing query: " + query); 
+		stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(query);
+		Category categoryResult;
+		while(rs.next()){
+			categoryResult = new Category(
+					Integer.valueOf(rs.getInt("id")),
+					rs.getString("name"),
+					rs.getString("description"),
+					rs.getString("status").equals("A") ? EntityStatus.ACTIVE : EntityStatus.ARCHIVED);
+			results.add(categoryResult);
+		}
 		return results;
 	}
-	public static List<Inventory> search(Inventory inventory) {
+	public static List<Inventory> search(Inventory inventory, List<String> searchTerms) throws SQLException {
 		List<Inventory> results = new ArrayList<Inventory>();
-		// TODO: finish search(Inventory)
+		String query = "SELECT * FROM Inventory WHERE ";
+		for (String term : searchTerms) {
+			// iterate through searchTerms
+			if(term.equalsIgnoreCase("uniqueId")){
+				query += "id=" + inventory.getUniqueId();
+			}else if(term.equalsIgnoreCase("productId")){
+				query += "product_id=" + inventory.getUniqueId();
+			}else if(term.equalsIgnoreCase("date")){
+				query += "date='" + inventory.getDate().toString() + "'";
+			}else if(term.equalsIgnoreCase("adjustment")){
+				query += "adjustment=" + inventory.getAdjustment();
+			}
+			query += " and ";
+		}
+		// remove the last stray " and "
+		query = query.substring(0, query.length() - 5);
+		System.out.println("Executing query: " + query); 
+		stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(query);
+		Inventory inventoryResult;
+		while(rs.next()){
+			inventoryResult = new Inventory(
+					Integer.valueOf(rs.getInt("id")),
+					Integer.valueOf(rs.getInt("product_id")),
+					rs.getDate("date"),
+					rs.getInt("adjustment"));
+			results.add(inventoryResult);
+		}
 		return results;
 	}
 }
