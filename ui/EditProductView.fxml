@@ -15,7 +15,7 @@
 		<AnchorPane layoutX="22.0" layoutY="6.0" minHeight="0.0" minWidth="0.0" prefHeight="509.0" prefWidth="601.0">
 			<children>
 				<Button layoutX="262.0" layoutY="404.0" mnemonicParsing="false" onAction="#handleSaveButton" text="Save Item" />
-				<Label layoutX="28.0" layoutY="14.0" text="Add Product">
+				<Label layoutX="28.0" layoutY="14.0" text="Edit Product">
 					<font>
 						<Font name="System Bold" size="14.0" />
 					</font>
@@ -46,9 +46,9 @@
 							</GridPane.margin>
 						</TextField>
 						<Label text="Quantity" GridPane.rowIndex="4" />
-                                                <NumericTextField fx:id="productQuantity" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                <TextField fx:id="productQuantity" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 						<Label text="Low Stock Quantity" GridPane.rowIndex="5" />
-						<NumericTextField fx:id="productLowStockQuantity" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+						<TextField fx:id="productLowStockQuantity" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 						<Label text="Vendor Id" GridPane.rowIndex="2" />
 						<TextField fx:id="productVendor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 						<Label text="Category Id" GridPane.rowIndex="3" />
@@ -56,7 +56,7 @@
 						<Label text="Description" GridPane.rowIndex="8" />
 						<TextField fx:id="productDescription" prefHeight="60.0" prefWidth="188.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                                                 <Label text="Initial Inventory" GridPane.rowIndex="6" />
-                                                <NumericTextField fx:id="productInitialInventory" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                <TextField fx:id="productInitialInventory" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                                 <Label text="Status" GridPane.rowIndex="7" />
                   <TextField fx:id="productStatus" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                  
@@ -64,8 +64,7 @@
                   
 					</children>
 				</GridPane>
-            <Button layoutX="401.0" layoutY="129.0" mnemonicParsing="false" text="Find Vendor" />
-            <Button layoutX="401.0" layoutY="162.0" mnemonicParsing="false" text="Find Category" />
+            <Button layoutX="253.0" layoutY="447.0" mnemonicParsing="false" onAction="#handleEdit" text="Sample Data" />
 			</children>
 			<opaqueInsets>
 				<Insets />

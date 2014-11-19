@@ -10,6 +10,9 @@ public class PageNavigator {
 	public static final String INVENTORY_VIEW = "/inventarium/ui/InventoryView.fxml";
 	public static final String ADD_PRODUCT_VIEW = "/inventarium/ui/AddProductView.fxml";
 	public static final String ADD_VENDOR_VIEW = "/inventarium/ui/AddVendorView.fxml";
+        public static final String EDIT_PRODUCT_VIEW = "/inventarium/ui/EditProductView.fxml";
+        public static final String SAVED_PRODUCT_VIEW = "/inventarium/ui/SavedProductView.fxml";
+        
 	private static UIListener mainDocumentController;
 
 	public static void setMainDocumentController(UIListener controller) {

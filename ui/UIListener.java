@@ -72,6 +72,12 @@ public class UIListener implements Initializable {
 	void addProduct(ActionEvent event) {
 		PageNavigator.loadPages(PageNavigator.ADD_PRODUCT_VIEW);
 	}
+        
+        @FXML
+	void editProduct(ActionEvent event) {              
+                PageNavigator.loadPages(PageNavigator.EDIT_PRODUCT_VIEW);
+                
+	}
 
 	@FXML
 	void addVendor(ActionEvent event) {

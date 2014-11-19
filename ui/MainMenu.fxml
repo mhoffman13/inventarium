@@ -34,7 +34,7 @@
                   <MenuItem mnemonicParsing="false" text="View All Products" />
                   <MenuItem id="updateQuantity" mnemonicParsing="false" text="Find Product" />
                   <MenuItem mnemonicParsing="false" onAction="#addProduct" text="New Product" />
-                  <MenuItem id="editProduct" mnemonicParsing="false" text="Edit Product" />
+                  <MenuItem id="editProduct" mnemonicParsing="false" onAction="#editProduct" text="Edit Product" />
                   <MenuItem id="findProduct" mnemonicParsing="false" text="Update Quantity" />
                </items>
             </Menu>
