@@ -8,14 +8,12 @@ import inventarium.helper.Address;
 import inventarium.helper.EntityStatus;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -114,7 +112,19 @@ public final class DataRequest {
 				+ vend.getPhone() + "', '"
 				+ vend.getEmail() + "', '"
 				+ vend.getContactName() + "')";
-		return runQuery(query);
+		try {
+			System.out.println("Executing query: " + query); 
+			stmt = conn.createStatement();
+			stmt.execute(query, Statement.RETURN_GENERATED_KEYS);
+			ResultSet rs = stmt.getGeneratedKeys();
+			rs.next();
+			vend.setUniqueId(Integer.valueOf(rs.getInt(1)));
+			return true;
+		}
+		catch (SQLException e) {
+			System.out.println(e);
+			return false;
+		}
 	}
 	public static boolean insertRecord( Product prod ) {
 		String query = "INSERT INTO Product (name, description, status, sku, quantity, "
@@ -128,21 +138,57 @@ public final class DataRequest {
 				+ prod.getCategory().getUniqueId() + ", "
 				+ prod.getVendor().getUniqueId() + ", "
 				+ (prod.isLow() ? 1 : 0) + ")";
-		return runQuery(query);
+		try {
+			System.out.println("Executing query: " + query); 
+			stmt = conn.createStatement();
+			stmt.execute(query, Statement.RETURN_GENERATED_KEYS);
+			ResultSet rs = stmt.getGeneratedKeys();
+			rs.next();
+			prod.setUniqueId(Integer.valueOf(rs.getInt(1)));
+			return true;
+		}
+		catch (SQLException e) {
+			System.out.println(e);
+			return false;
+		}
 	}
 	public static boolean insertRecord( Category cat ) {
 		String query = "INSERT INTO Category (name, description, status) VALUES ('"
 				+ cat.getName() + "', '"
 				+ cat.getDescription() + "', '"
 				+ cat.getStatus().getEntityStatus() + "')";
-		return runQuery(query);
+		try {
+			System.out.println("Executing query: " + query); 
+			stmt = conn.createStatement();
+			stmt.execute(query, Statement.RETURN_GENERATED_KEYS);
+			ResultSet rs = stmt.getGeneratedKeys();
+			rs.next();
+			cat.setUniqueId(Integer.valueOf(rs.getInt(1)));
+			return true;
+		}
+		catch (SQLException e) {
+			System.out.println(e);
+			return false;
+		}
 	}
 	public static boolean insertRecord( Inventory inv ) {
 		String query = "INSERT INTO Inventory (product_id, date, adjustment) VALUES ("
 				+ inv.getProductId() + ", '"
 				+ inv.getDate().toString() + "', "
 				+ inv.getAdjustment() + ")";
-		return runQuery(query);
+		try {
+			System.out.println("Executing query: " + query); 
+			stmt = conn.createStatement();
+			stmt.execute(query, Statement.RETURN_GENERATED_KEYS);
+			ResultSet rs = stmt.getGeneratedKeys();
+			rs.next();
+			inv.setUniqueId(Integer.valueOf(rs.getInt(1)));
+			return true;
+		}
+		catch (SQLException e) {
+			System.out.println(e);
+			return false;
+		}
 	}
 	public static boolean updateRecord( Vendor vend ) {
 		String query = "UPDATE Vendor SET "
@@ -158,7 +204,7 @@ public final class DataRequest {
 				+ "email='" + vend.getEmail() + "', "
 				+ "contact_name='" + vend.getContactName() + "' "
 				+ "WHERE id = " + vend.getUniqueId();
-		return runQuery(query);
+		return updateQuery(query);
 	}
 	public static boolean updateRecord( Product prod ) {
 		String query = "UPDATE Product SET "
@@ -172,7 +218,7 @@ public final class DataRequest {
 				+ "category_id=" + prod.getCategory().getUniqueId() + ", "
 				+ "vendor_id=" + prod.getVendor().getUniqueId() + " "
 				+ "WHERE id = " + prod.getUniqueId();
-		return runQuery(query);
+		return updateQuery(query);
 	}
 	public static boolean updateRecord( Category cat ) {
 		String query = "UPDATE Category SET "
@@ -180,7 +226,7 @@ public final class DataRequest {
 				+ "description='" + cat.getDescription() + "', "
 				+ "status='" + cat.getStatus().getEntityStatus() + "' "
 				+ "WHERE id = " + cat.getUniqueId();
-		return runQuery(query);
+		return updateQuery(query);
 	}
 	public static boolean updateRecord( Inventory inv ) {
 		String query = "UPDATE Inventory SET "
@@ -188,9 +234,9 @@ public final class DataRequest {
 				+ "date='" + inv.getDate().toString() + "', "
 				+ "adjustment=" + inv.getAdjustment() + " "
 				+ "WHERE id = " + inv.getUniqueId();
-		return runQuery(query);
+		return updateQuery(query);
 	}
-	public static boolean runQuery( String query ) {
+	public static boolean updateQuery( String query ) {
 		try {
 			System.out.println("Executing query: " + query); 
 			stmt = conn.createStatement();
