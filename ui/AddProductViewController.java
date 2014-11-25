@@ -18,28 +18,28 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class AddProductViewController implements Initializable {
-        @FXML
-	TextField productName;
-        @FXML
-	Label name;
-	@FXML
-	TextField productQuantity;
-	@FXML
-	TextField productVendor;
-	@FXML
-	TextField productNumber;
-	@FXML
-	TextField productSKU;
-        @FXML
-	TextField productStatus;
-        @FXML
-	TextField productLowStockQuantity;
-	@FXML
-	TextField productDescription;
-	@FXML
-	TextField productCategory;
-        @FXML
-        TextField productInitialInventory;
+    @FXML
+    TextField productName;
+    @FXML
+    Label name;
+    @FXML
+    TextField productQuantity;
+    @FXML
+    TextField productVendor;
+    @FXML
+    TextField productNumber;
+    @FXML
+    TextField productSKU;
+    @FXML
+    TextField productStatus;
+    @FXML
+    TextField productLowStockQuantity;
+    @FXML
+    TextField productDescription;
+    @FXML
+    TextField productCategory;
+    @FXML
+    TextField productInitialInventory;
 	
 	@FXML
 	private void handleSaveButton(ActionEvent event) {
@@ -63,7 +63,7 @@ public class AddProductViewController implements Initializable {
 			System.out.println("Sku:\t\t\t" + product.getSku());
 			System.out.println("Description:\t" + product.getDescription());
 			System.out.println("Vendor Id:\t" + product.getVendor().getUniqueId());       
-                        PageNavigator.loadPages(PageNavigator.SAVED_PRODUCT_VIEW);
+			PageNavigator.loadPages(PageNavigator.SAVED_PRODUCT_VIEW);
                          
 		}else{
 			//something went wrong, display message
