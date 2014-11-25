@@ -1,12 +1,16 @@
-package inventarium.helper;
+package inventarium.utils;
 
-public enum EntityStatus {
+/**
+ * @author mhoffman
+ */
+
+public enum Status {
 	ACTIVE('A'),
 	ARCHIVED('X');
 	
 	private char statusCode;
 	
-	private EntityStatus(char c){
+	private Status(char c){
 		statusCode = c;
 	}
 	
@@ -14,8 +18,8 @@ public enum EntityStatus {
 		return statusCode;
 	}
 	
-	public static EntityStatus getEntityStatus(char c){
+	public static Status getEntityStatus(char c){
 		String s = Character.toString(c);
-		return EntityStatus.valueOf(s);
+		return Status.valueOf(s);
 	}
 }

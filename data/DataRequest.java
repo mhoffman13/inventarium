@@ -1,16 +1,20 @@
 package inventarium.data;
 
-import inventarium.entity.Category;
-import inventarium.entity.Inventory;
-import inventarium.entity.Product;
-import inventarium.entity.Vendor;
-import inventarium.helper.Address;
-import inventarium.helper.EntityStatus;
+/**
+ * Handle getting and setting database data
+ * @author Alex Howard
+ */
+
+import inventarium.model.Category;
+import inventarium.model.Inventory;
+import inventarium.model.Product;
+import inventarium.model.Vendor;
+import inventarium.utils.Address;
+import inventarium.utils.Status;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -102,7 +106,7 @@ public final class DataRequest {
 		String query = "INSERT INTO Vendor (name, status, description, address_line1, address_line2, "
 				+ "address_city, address_state, address_zip, phone, email, contact_name) VALUES ('"
 				+ vend.getName() + "', '"
-				+ vend.getStatus().getEntityStatus() + "', '"
+				+ vend.getStatus() + "', '"
 				+ vend.getDescription() + "', '"
 				+ vend.getAddress().getLine1() + "', '"
 				+ vend.getAddress().getLine2() + "', '"
@@ -131,12 +135,12 @@ public final class DataRequest {
 				+ "low_quantity, category_id, vendor_id, is_low ) VALUES ('"
 				+ prod.getName() + "', '"
 				+ prod.getDescription() + "', '"
-				+ prod.getStatus().getEntityStatus() + "', '"
+				+ prod.getStatus() + "', '"
 				+ prod.getSku() + "', "
 				+ prod.getQuantity() + ", "
-				+ prod.getlowQuantity() + ", "
-				+ prod.getCategory().getUniqueId() + ", "
-				+ prod.getVendor().getUniqueId() + ", "
+				+ prod.getLowQuantity() + ", "
+				+ prod.getCategoryName() + ", "
+				+ prod.getVendorName() + ", "
 				+ (prod.isLow() ? 1 : 0) + ")";
 		try {
 			System.out.println("Executing query: " + query); 
@@ -156,7 +160,7 @@ public final class DataRequest {
 		String query = "INSERT INTO Category (name, description, status) VALUES ('"
 				+ cat.getName() + "', '"
 				+ cat.getDescription() + "', '"
-				+ cat.getStatus().getEntityStatus() + "')";
+				+ cat.getStatus() + "')";
 		try {
 			System.out.println("Executing query: " + query); 
 			stmt = conn.createStatement();
@@ -193,7 +197,7 @@ public final class DataRequest {
 	public static boolean updateRecord( Vendor vend ) {
 		String query = "UPDATE Vendor SET "
 				+ "name='" + vend.getName() + "', "
-				+ "status='" + vend.getStatus().getEntityStatus() + "', "
+				+ "status='" + vend.getStatus() + "', "
 				+ "description='" + vend.getDescription() + "', "
 				+ "address_line1='" + vend.getAddress().getLine1() + "', "
 				+ "address_line2='" + vend.getAddress().getLine2() + "', "
@@ -210,13 +214,13 @@ public final class DataRequest {
 		String query = "UPDATE Product SET "
 				+ "name='" + prod.getName() + "', "
 				+ "description='" + prod.getDescription() + "', "
-				+ "status='" + prod.getStatus().getEntityStatus() + "', "
+				+ "status='" + prod.getStatus() + "', "
 				+ "sku='" + prod.getSku() + "', "
 				+ "quantity=" + prod.getQuantity() + ", "
-				+ "low_quantity=" + prod.getlowQuantity() + ", "
+				+ "low_quantity=" + prod.getLowQuantity() + ", "
 				+ "is_low=" + (prod.isLow() ? 1 : 0) + ", "
-				+ "category_id=" + prod.getCategory().getUniqueId() + ", "
-				+ "vendor_id=" + prod.getVendor().getUniqueId() + " "
+				+ "category_id=" + prod.getCategoryName() + ", "
+				+ "vendor_id=" + prod.getVendorName() + " "
 				+ "WHERE id = " + prod.getUniqueId();
 		return updateQuery(query);
 	}
@@ -224,7 +228,7 @@ public final class DataRequest {
 		String query = "UPDATE Category SET "
 				+ "name='" + cat.getName() + "', "
 				+ "description='" + cat.getDescription() + "', "
-				+ "status='" + cat.getStatus().getEntityStatus() + "' "
+				+ "status='" + cat.getStatus() + "' "
 				+ "WHERE id = " + cat.getUniqueId();
 		return updateQuery(query);
 	}
@@ -248,24 +252,6 @@ public final class DataRequest {
 			return false;
 		}
 	}
-	public static List<Object> search( String searchTerm, String columnName, 
-			String tableName  ) throws SQLException {
-		// meredith: added throws SQLException here, may need to tweak that
-		// but eclipse was throwing up errors without it
-		List<Object> result = new ArrayList<Object>();
-		String query = "SELECT * FROM " + tableName + " WHERE " + columnName + "='" + searchTerm + "'";
-		stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery(query);
-		ResultSetMetaData metaData = rs.getMetaData();
-		int columns = metaData.getColumnCount();
-		while (rs.next()) {
-			for(int i=1; i<=columns; i++) {
-				// TODO: create object from column values
-			}
-			// TODO: add object to list
-		}
-		return result;
-	}
 	
 	public static Set<Product> search(Product product, List<String> searchTerms) throws SQLException {
 		Set<Product> results = new HashSet<Product>();
@@ -278,7 +264,7 @@ public final class DataRequest {
 			}else if(term.equalsIgnoreCase("name")){
 				query += "name LIKE '" + product.getName() + "'";
 			}else if(term.equalsIgnoreCase("status")){
-				query += "status='" + product.getStatus().getEntityStatus() + "'";
+				query += "status='" + product.getStatus() + "'";
 			}else if(term.equalsIgnoreCase("description")){
 				query += "description LIKE '" + product.getDescription() + "'";
 			}else if(term.equalsIgnoreCase("sku")){
@@ -286,11 +272,11 @@ public final class DataRequest {
 			}else if(term.equalsIgnoreCase("quantity")){
 				query += "quantity=" + product.getQuantity();
 			}else if(term.equalsIgnoreCase("lowQuantity")){
-				query += "low_quantity=" + product.getlowQuantity();
+				query += "low_quantity=" + product.getLowQuantity();
 			}else if(term.equalsIgnoreCase("vendor")){
-				query += "vendor_id=" + product.getVendor().getUniqueId();
+				query += "vendor_id=" + product.getVendorName();
 			}else if(term.equalsIgnoreCase("category")){
-				query += "category_id=" + product.getCategory().getUniqueId();
+				query += "category_id=" + product.getCategoryName();
 			}else if(term.equalsIgnoreCase("isLow")){
 				query += "is_low=" + (product.isLow() ? 1 : 0);
 			}
@@ -325,7 +311,7 @@ public final class DataRequest {
 					vendRs.getString("phone"), 
 					vendAddress, 
 					vendRs.getString("email"), 
-					vendRs.getString("status").equals("A") ? EntityStatus.ACTIVE : EntityStatus.ARCHIVED);
+					vendRs.getString("status").equals("A") ? Status.ACTIVE : Status.ARCHIVED);
 			// Fetch product's category
 			query = "SELECT * FROM Category WHERE id = " + rs.getInt("category_id");
 			catRs = stmt.executeQuery(query);
@@ -333,12 +319,71 @@ public final class DataRequest {
 					Integer.valueOf(catRs.getInt("id")),
 					catRs.getString("name"),
 					catRs.getString("description"),
-					catRs.getString("status").equals("A") ? EntityStatus.ACTIVE : EntityStatus.ARCHIVED);
+					catRs.getString("status").equals("A") ? Status.ACTIVE : Status.ARCHIVED);
 			// Build product
 			productResult = new Product(
 					Integer.valueOf(rs.getInt("id")),
 					rs.getString("name"),
-					rs.getString("status").equals("A") ? EntityStatus.ACTIVE : EntityStatus.ARCHIVED,
+					rs.getString("status").equals("A") ? Status.ACTIVE : Status.ARCHIVED,
+					rs.getString("description"),
+					rs.getString("sku"),
+					rs.getInt("quantity"),
+					rs.getInt("low_quantity"),
+					prodCategory,
+					prodVendor,
+					null); // TODO: pass product's inventory list
+			results.add(productResult);
+		}
+		return results;
+	}
+	public static Set<Product> getAll(Product product) throws SQLException {
+		Set<Product> results = new HashSet<Product>();
+		String query = "SELECT * FROM Product ";
+		System.out.println("Executing query: " + query); 
+		stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(query);
+		Category prodCategory = null;
+		Vendor prodVendor = null;
+		ResultSet catRs;
+		ResultSet vendRs;
+		Address vendAddress;
+		Product productResult;
+		while(rs.next()){
+			// Fetch product's vendor
+			if(rs.getInt("vendor_id") > 0){
+				query = "SELECT * FROM Vendor WHERE id = " + rs.getInt("vendor_id");
+				vendRs = stmt.executeQuery(query);
+				vendAddress = new Address(
+						vendRs.getString("address_line1"),
+						vendRs.getString("address_line2"),
+						vendRs.getString("address_city"),
+						vendRs.getString("address_state"),
+						vendRs.getString("address_zip"));
+				prodVendor = new Vendor(
+						Integer.valueOf(vendRs.getInt("id")),
+						vendRs.getString("name"),
+						vendRs.getString("description"),
+						vendRs.getString("contact_name"), 
+						vendRs.getString("phone"), 
+						vendAddress, 
+						vendRs.getString("email"), 
+						vendRs.getString("status").equals("A") ? Status.ACTIVE : Status.ARCHIVED);
+			}
+			// Fetch product's category
+			if(rs.getInt("category_id") > 0){
+				query = "SELECT * FROM Category WHERE id = " + rs.getInt("category_id");
+				catRs = stmt.executeQuery(query);
+				prodCategory = new Category(
+						Integer.valueOf(catRs.getInt("id")),
+						catRs.getString("name"),
+						catRs.getString("description"),
+						catRs.getString("status").equals("A") ? Status.ACTIVE : Status.ARCHIVED);
+			}	
+			// Build product
+			productResult = new Product(
+					Integer.valueOf(rs.getInt("id")),
+					rs.getString("name"),
+					rs.getString("status").equals("A") ? Status.ACTIVE : Status.ARCHIVED,
 					rs.getString("description"),
 					rs.getString("sku"),
 					rs.getInt("quantity"),
@@ -368,7 +413,7 @@ public final class DataRequest {
 			}else if(term.equalsIgnoreCase("email")){
 				query += "email LIKE '" + vendor.getDescription() + "'";
 			}else if(term.equalsIgnoreCase("status")){
-				query += "status='" + vendor.getStatus().getEntityStatus() + "'";
+				query += "status='" + vendor.getStatus() + "'";
 			}
 			query += " and ";
 		}
@@ -396,11 +441,43 @@ public final class DataRequest {
 					rs.getString("phone"),
 					address,
 					rs.getString("email"),
-					rs.getString("status").equals("A") ? EntityStatus.ACTIVE : EntityStatus.ARCHIVED);
+					rs.getString("status").equals("A") ? Status.ACTIVE : Status.ARCHIVED);
 			results.add(vendorResult);
 		}
 		return results;
 	}
+	
+	public static Set<Vendor> getAll(Vendor vendor) throws SQLException {
+		Set<Vendor> results = new HashSet<Vendor>();
+		String query = "SELECT * FROM Vendor";
+		System.out.println("Executing query: " + query); 
+		stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(query);
+		Address address;
+		Vendor vendorResult;
+		while(rs.next()){
+			// Build vendor's address
+			address = new Address(
+					rs.getString("address_line1"),
+					rs.getString("address_line2"),
+					rs.getString("address_city"),
+					rs.getString("address_state"),
+					rs.getString("address_zip"));
+			// Build vendor
+			vendorResult = new Vendor(
+					Integer.valueOf(rs.getInt("id")),
+					rs.getString("name"),
+					rs.getString("description"),
+					rs.getString("contact_name"),
+					rs.getString("phone"),
+					address,
+					rs.getString("email"),
+					rs.getString("status").equals("A") ? Status.ACTIVE : Status.ARCHIVED);
+			results.add(vendorResult);
+		}
+		return results;
+	}
+	
 	public static Set<Category> search(Category category, List<String> searchTerms) throws SQLException {
 		Set<Category> results = new HashSet<Category>();
 		String query = "SELECT * FROM Category WHERE ";
@@ -413,7 +490,7 @@ public final class DataRequest {
 			}else if(term.equalsIgnoreCase("description")){
 				query += "description LIKE '" + category.getDescription() + "'";
 			}else if(term.equalsIgnoreCase("status")){
-				query += "status='" + category.getStatus().getEntityStatus() + "'";
+				query += "status='" + category.getStatus() + "'";
 			}
 			query += " and ";
 		}
@@ -428,7 +505,24 @@ public final class DataRequest {
 					Integer.valueOf(rs.getInt("id")),
 					rs.getString("name"),
 					rs.getString("description"),
-					rs.getString("status").equals("A") ? EntityStatus.ACTIVE : EntityStatus.ARCHIVED);
+					rs.getString("status").equals("A") ? Status.ACTIVE : Status.ARCHIVED);
+			results.add(categoryResult);
+		}
+		return results;
+	}
+	public static Set<Category> getAll(Category category) throws SQLException {
+		Set<Category> results = new HashSet<Category>();
+		String query = "SELECT * FROM Category";
+		System.out.println("Executing query: " + query); 
+		stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(query);
+		Category categoryResult;
+		while(rs.next()){
+			categoryResult = new Category(
+					Integer.valueOf(rs.getInt("id")),
+					rs.getString("name"),
+					rs.getString("description"),
+					rs.getString("status").equals("A") ? Status.ACTIVE : Status.ARCHIVED);
 			results.add(categoryResult);
 		}
 		return results;

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
+
+<AnchorPane minHeight="600.0" minWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventarium.view.VendorEditDialogController">
+	<children>
+		<GridPane alignment="CENTER" hgap="10.0" vgap="10.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="10.0">
+			<columnConstraints>
+				<ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="100.0" />
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="250.0" />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="50.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+			</rowConstraints>
+			<children>
+				<Label text="ID" />
+				<TextField fx:id="uniqueIdText" GridPane.columnIndex="1" />
+				<Label text="Name" GridPane.rowIndex="1" />
+				<TextField fx:id="nameText" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+				<Label text="Status" GridPane.rowIndex="2" />
+				<ComboBox fx:id="statusInput" GridPane.columnIndex="1" GridPane.rowIndex="2">
+						<items>
+							<FXCollections fx:factory="observableArrayList">
+								<String fx:value="Active" />
+								<String fx:value="Archived" />
+							</FXCollections>
+						</items>
+						<value>
+							<String fx:value="Active" />
+						</value>
+					</ComboBox>
+				<Label text="Contact Person" GridPane.rowIndex="3" />
+				<TextField fx:id="contactNameText" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+				<Label text="Phone" GridPane.rowIndex="4" />
+				<TextField fx:id="phoneText" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+				<Label text="Email" GridPane.rowIndex="5" />
+				<TextField fx:id="emailText" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+				<Label text="Address" GridPane.halignment="LEFT" GridPane.rowIndex="6" />
+				<Label text="Line 1" GridPane.rowIndex="7" />
+				<TextField fx:id="line1Text" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+				<Label text="Line 2" GridPane.rowIndex="8" />
+				<TextField fx:id="line2Text" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+				<Label text="City" GridPane.rowIndex="9" />
+				<TextField fx:id="cityText" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+				<Label text="State" GridPane.rowIndex="10" />
+				<TextField fx:id="stateText" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+				<Label text="Zip" GridPane.rowIndex="11" />
+				<TextField fx:id="zipText" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+				<Label text="Description" GridPane.rowIndex="12" />
+				<TextField fx:id="descriptionText" alignment="TOP_LEFT" minHeight="50.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+			</children>
+ 		</GridPane>
+		<GridPane alignment="CENTER" prefWidth="210.0" vgap="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+			<columnConstraints>
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+			</rowConstraints>
+			<children>
+				<Button mnemonicParsing="false" onAction="#handleOk" prefWidth="100.0" text="OK" />
+				<Button maxWidth="100.0" mnemonicParsing="false" onAction="#handleCancel" prefWidth="100.0" text="Cancel" GridPane.columnIndex="1" />
+			</children>
+		</GridPane>
+	</children>
+</AnchorPane>

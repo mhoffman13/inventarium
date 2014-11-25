@@ -1,4 +1,4 @@
-package inventarium.entity;
+package inventarium.model;
 
 import java.util.Date;
 
