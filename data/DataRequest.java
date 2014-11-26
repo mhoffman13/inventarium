@@ -143,12 +143,12 @@ public final class DataRequest {
 				+ prod.getQuantity() + ", "
 				+ prod.getLowQuantity() + ", "
 				+ (prod.isLow() ? 1 : 0);
-		if(prod.getCategoryName()==null){
+		if(prod.getCategoryName()==null || prod.getCategory().getUniqueId()==0){
 			query += ", " + null;
 		}else{
 			query += ", " + prod.getCategory().getUniqueId();
 		}
-		if(prod.getVendorName()==null){
+		if(prod.getVendorName()==null || prod.getVendor().getUniqueId()==0){
 			query += ", " + null; 
 		}else{
 			query += ", " + prod.getVendor().getUniqueId();
