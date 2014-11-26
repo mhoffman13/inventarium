@@ -335,7 +335,7 @@ public final class DataRequest {
 					vendRs.getString("phone"), 
 					vendAddress, 
 					vendRs.getString("email"), 
-					vendRs.getString("status").equals("A") ? Status.ACTIVE : Status.ARCHIVED);
+					vendRs.getString("status").equals("ACTIVE") ? Status.ACTIVE : Status.ARCHIVED);
 			// Fetch product's category
 			query = "SELECT * FROM Category WHERE id = " + rs.getInt("category_id");
 			catRs = stmt.executeQuery(query);
@@ -343,12 +343,12 @@ public final class DataRequest {
 					Integer.valueOf(catRs.getInt("id")),
 					catRs.getString("name"),
 					catRs.getString("description"),
-					catRs.getString("status").equals("A") ? Status.ACTIVE : Status.ARCHIVED);
+					catRs.getString("status").equals("ACTIVE") ? Status.ACTIVE : Status.ARCHIVED);
 			// Build product
 			productResult = new Product(
 					Integer.valueOf(rs.getInt("id")),
 					rs.getString("name"),
-					rs.getString("status").equals("A") ? Status.ACTIVE : Status.ARCHIVED,
+					rs.getString("status").equals("ACTIVE") ? Status.ACTIVE : Status.ARCHIVED,
 					rs.getString("description"),
 					rs.getString("sku"),
 					rs.getInt("quantity"),
@@ -391,7 +391,7 @@ public final class DataRequest {
 						vendRs.getString("phone"), 
 						vendAddress, 
 						vendRs.getString("email"), 
-						vendRs.getString("status").equals("A") ? Status.ACTIVE : Status.ARCHIVED);
+						vendRs.getString("status").equals("ACTIVE") ? Status.ACTIVE : Status.ARCHIVED);
 			}
 			// Fetch product's category
 			if(rs.getInt("category_id") > 0){
@@ -401,13 +401,13 @@ public final class DataRequest {
 						Integer.valueOf(catRs.getInt("id")),
 						catRs.getString("name"),
 						catRs.getString("description"),
-						catRs.getString("status").equals("A") ? Status.ACTIVE : Status.ARCHIVED);
+						catRs.getString("status").equals("ACTIVE") ? Status.ACTIVE : Status.ARCHIVED);
 			}	
 			// Build product
 			productResult = new Product(
 					Integer.valueOf(rs.getInt("id")),
 					rs.getString("name"),
-					rs.getString("status").equals("A") ? Status.ACTIVE : Status.ARCHIVED,
+					rs.getString("status").equals("ACTIVE") ? Status.ACTIVE : Status.ARCHIVED,
 					rs.getString("description"),
 					rs.getString("sku"),
 					rs.getInt("quantity"),
@@ -465,7 +465,7 @@ public final class DataRequest {
 					rs.getString("phone"),
 					address,
 					rs.getString("email"),
-					rs.getString("status").equals("A") ? Status.ACTIVE : Status.ARCHIVED);
+					rs.getString("status").equals("ACTIVE") ? Status.ACTIVE : Status.ARCHIVED);
 			results.add(vendorResult);
 		}
 		return results;
@@ -496,7 +496,7 @@ public final class DataRequest {
 					rs.getString("phone"),
 					address,
 					rs.getString("email"),
-					rs.getString("status").equals("A") ? Status.ACTIVE : Status.ARCHIVED);
+					rs.getString("status").equals("ACTIVE") ? Status.ACTIVE : Status.ARCHIVED);
 			results.add(vendorResult);
 		}
 		return results;
@@ -529,7 +529,7 @@ public final class DataRequest {
 					Integer.valueOf(rs.getInt("id")),
 					rs.getString("name"),
 					rs.getString("description"),
-					rs.getString("status").equals("A") ? Status.ACTIVE : Status.ARCHIVED);
+					rs.getString("status").equals("ACTIVE") ? Status.ACTIVE : Status.ARCHIVED);
 			results.add(categoryResult);
 		}
 		return results;
@@ -546,7 +546,7 @@ public final class DataRequest {
 					Integer.valueOf(rs.getInt("id")),
 					rs.getString("name"),
 					rs.getString("description"),
-					rs.getString("status").equals("A") ? Status.ACTIVE : Status.ARCHIVED);
+					rs.getString("status").equals("ACTIVE") ? Status.ACTIVE : Status.ARCHIVED);
 			results.add(categoryResult);
 		}
 		return results;
