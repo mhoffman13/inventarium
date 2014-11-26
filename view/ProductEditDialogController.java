@@ -73,9 +73,11 @@ public class ProductEditDialogController {
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
+		categoryInputData.add(new Category("None",""));
 		for(Category c : categories){
 			categoryInputData.add(c);
 		}
+		vendorInputData.add(new Vendor("None", ""));
 		for(Vendor v : vendors){
 			vendorInputData.add(v);
 		}
@@ -102,7 +104,7 @@ public class ProductEditDialogController {
 					if (category == null || empty) {
 						setText(null);
 					} else {
-						setText(category.getName() + " (Id " + category.getUniqueId() + ")");
+						setText(category.getName());
 					}
 				}
 			};
@@ -117,7 +119,7 @@ public class ProductEditDialogController {
 					if (vendor == null || empty) {
 						setText(null);
 					} else {
-						setText(vendor.getName() + " (Id " + vendor.getUniqueId() + ")");
+						setText(vendor.getName());
 					}
 				}
 			};
@@ -145,7 +147,7 @@ public class ProductEditDialogController {
 				if (category == null) {
 					return null;
 				} else {
-					return category.getUniqueId() + " -  " + category.getName();
+					return category.getName();
 				}
 			}
 
@@ -161,7 +163,7 @@ public class ProductEditDialogController {
 				if (vendor == null) {
 					return null;
 				} else {
-					return vendor.getUniqueId() + " -  " + vendor.getName();
+					return vendor.getName();
 				}
 			}
 
@@ -173,11 +175,15 @@ public class ProductEditDialogController {
 		
 		// Handle ComboBox events.
 		categoryInput.setOnAction((event) -> {
-			product.setCategory(categoryInput.getSelectionModel().getSelectedItem());
+			if(categoryInput.getSelectionModel().getSelectedItem() != null){
+				product.setCategory(categoryInput.getSelectionModel().getSelectedItem());
+			}
 		});
 		
 		vendorInput.setOnAction((event) -> {
-			product.setVendor(vendorInput.getSelectionModel().getSelectedItem());
+			if(vendorInput.getSelectionModel().getSelectedItem() != null){
+				product.setVendor(vendorInput.getSelectionModel().getSelectedItem());
+			}
 		});
 		
 		statusInput.setOnAction((event) -> {
