@@ -64,7 +64,7 @@ public class Product {
 	 * @param quantity
 	 * @param lowQuantity
 	 */
-	public Product(int uniqueId, String name, Status status, String description, String sku, int quantity, int lowQuantity, Category category, Vendor vendor) {
+	public Product(int uniqueId, String name, Status status, String description, String sku, int quantity, int lowQuantity, Category category, Vendor vendor, Inventory inv) {
 		this.uniqueId = new SimpleIntegerProperty(uniqueId);
 		this.name = new SimpleStringProperty(name);
 		this.status = new SimpleStringProperty(status.name());
