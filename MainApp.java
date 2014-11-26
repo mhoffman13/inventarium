@@ -44,7 +44,6 @@ public class MainApp extends Application {
 	 * Default Constructor
 	 */
 	public MainApp() {
-		// TODO: Use DataRequest to build product, vendor, ...
 		DataRequest.initialize();
 		Set<Product> productList = new HashSet<>();
 		Set<Vendor> vendorList = new HashSet<>();
@@ -55,7 +54,6 @@ public class MainApp extends Application {
 			categoryList = DataRequest.getAll(new Category());
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		for(Product p : productList){
