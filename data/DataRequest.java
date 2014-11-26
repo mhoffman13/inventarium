@@ -236,10 +236,16 @@ public final class DataRequest {
 				+ "sku='" + prod.getSku() + "', "
 				+ "quantity=" + prod.getQuantity() + ", "
 				+ "low_quantity=" + prod.getLowQuantity() + ", "
-				+ "is_low=" + (prod.isLow() ? 1 : 0) + ", "
-				+ "category_id=" + prod.getCategoryName() + ", "
-				+ "vendor_id=" + prod.getVendorName() + " "
-				+ "WHERE id = " + prod.getUniqueId();
+				+ "is_low=" + (prod.isLow() ? 1 : 0) + ", ";
+		if(prod.getCategory() == null || prod.getCategory().getUniqueId() == 0)
+			query += "category_id=null, ";
+		else
+			query += "category_id=" + prod.getCategory().getUniqueId() + ", ";
+		if(prod.getVendor() == null || prod.getVendor().getUniqueId() == 0)
+			query += "vendor_id=null ";
+		else
+			query += "vendor_id=" + prod.getVendor().getUniqueId() + " ";
+		query += "WHERE id = " + prod.getUniqueId();
 		return runQuery(query);
 	}
 	public static boolean updateRecord( Category cat ) {
