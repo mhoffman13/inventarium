@@ -218,7 +218,7 @@ public final class DataRequest {
 				+ "email='" + vend.getEmail() + "', "
 				+ "contact_name='" + vend.getContactName() + "' "
 				+ "WHERE id = " + vend.getUniqueId();
-		return updateQuery(query);
+		return runQuery(query);
 	}
 	public static boolean updateRecord( Product prod ) {
 		String query = "UPDATE Product SET "
@@ -232,7 +232,7 @@ public final class DataRequest {
 				+ "category_id=" + prod.getCategoryName() + ", "
 				+ "vendor_id=" + prod.getVendorName() + " "
 				+ "WHERE id = " + prod.getUniqueId();
-		return updateQuery(query);
+		return runQuery(query);
 	}
 	public static boolean updateRecord( Category cat ) {
 		String query = "UPDATE Category SET "
@@ -240,7 +240,7 @@ public final class DataRequest {
 				+ "description='" + cat.getDescription() + "', "
 				+ "status='" + cat.getStatus() + "' "
 				+ "WHERE id = " + cat.getUniqueId();
-		return updateQuery(query);
+		return runQuery(query);
 	}
 	public static boolean updateRecord( Inventory inv ) {
 		String query = "UPDATE Inventory SET "
@@ -248,9 +248,9 @@ public final class DataRequest {
 				+ "date='" + inv.getDate().toString() + "', "
 				+ "adjustment=" + inv.getAdjustment() + " "
 				+ "WHERE id = " + inv.getUniqueId();
-		return updateQuery(query);
+		return runQuery(query);
 	}
-	public static boolean updateQuery( String query ) {
+	public static boolean runQuery( String query ) {
 		try {
 			System.out.println("Executing query: " + query); 
 			stmt = conn.createStatement();
@@ -262,7 +262,21 @@ public final class DataRequest {
 			return false;
 		}
 	}
-	
+	public static boolean removeRecord(Vendor vendor) {
+		Integer id = vendor.getUniqueId();
+		String query = "DELETE FROM Vendor where id=" + id;
+		return runQuery(query);
+	}
+	public static boolean removeRecord(Product product) {
+		Integer id = product.getUniqueId();
+		String query = "DELETE FROM Product where id=" + id;
+		return runQuery(query);
+	}
+	public static boolean removeRecord(Category category) {
+		Integer id = category.getUniqueId();
+		String query = "DELETE FROM Category where id=" + id;
+		return runQuery(query);
+	}
 	public static Set<Product> search(Product product, List<String> searchTerms) throws SQLException {
 		Set<Product> results = new HashSet<Product>();
 		String query = "SELECT * FROM Product WHERE ";// + columnName + "='" + searchTerm + "'";

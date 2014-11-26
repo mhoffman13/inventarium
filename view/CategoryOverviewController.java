@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import inventarium.MainApp;
+import inventarium.data.DataRequest;
 import inventarium.model.Category;
 
 public class CategoryOverviewController {
@@ -102,6 +103,7 @@ public class CategoryOverviewController {
 	@FXML
 	private void handleDeleteCategory() {
 		int selectedIndex = categoryTable.getSelectionModel().getSelectedIndex();
+		Category selectedCategory = categoryTable.getSelectionModel().getSelectedItem();
 		if(selectedIndex >= 0) {
 			Action response = Dialogs.create()
 				.owner(mainApp.getPrimaryStage())
@@ -110,6 +112,7 @@ public class CategoryOverviewController {
 				.showConfirm();
 				
 			if (response == Dialog.Actions.YES) {
+				DataRequest.removeRecord(selectedCategory);
 				categoryTable.getItems().remove(selectedIndex);
 			}
 			// else, do nothing

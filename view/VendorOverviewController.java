@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import inventarium.MainApp;
+import inventarium.data.DataRequest;
 import inventarium.model.Vendor;
 
 public class VendorOverviewController {
@@ -134,6 +135,7 @@ public class VendorOverviewController {
 	@FXML
 	private void handleDeleteVendor() {
 		int selectedIndex = vendorTable.getSelectionModel().getSelectedIndex();
+		Vendor selectedVendor = vendorTable.getSelectionModel().getSelectedItem();
 		if(selectedIndex >= 0) {
 			Action response = Dialogs.create()
 				.owner(mainApp.getPrimaryStage())
@@ -142,6 +144,7 @@ public class VendorOverviewController {
 				.showConfirm();
 				
 			if (response == Dialog.Actions.YES) {
+				DataRequest.removeRecord(selectedVendor);
 				vendorTable.getItems().remove(selectedIndex);
 			}
 			// else, do nothing
