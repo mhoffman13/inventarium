@@ -365,8 +365,7 @@ public final class DataRequest {
 					rs.getInt("quantity"),
 					rs.getInt("low_quantity"),
 					prodCategory,
-					prodVendor,
-					null); // TODO: pass product's inventory list
+					prodVendor);
 			results.add(productResult);
 		}
 		secondaryStatement.close();
@@ -429,8 +428,7 @@ public final class DataRequest {
 					rs.getInt("quantity"),
 					rs.getInt("low_quantity"),
 					prodCategory,
-					prodVendor,
-					null); // TODO: pass product's inventory list
+					prodVendor);
 			results.add(productResult);
 		}
 		secondaryStatement.close();
