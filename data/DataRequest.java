@@ -87,6 +87,7 @@ public final class DataRequest {
 					+ "product_id INT REFERENCES Product(id), "
 					+ "date DATE, "
 					+ "adjustment INT)");
+				stmt.close();
 			} catch (SQLException e) {
 				System.out.println(e); 
 			}
@@ -96,6 +97,7 @@ public final class DataRequest {
 		try {
 			stmt = conn.createStatement();
 			stmt.execute("SELECT * FROM Product");
+			stmt.close();
 			return true;
 		}
 		catch (SQLException e) {
@@ -123,6 +125,7 @@ public final class DataRequest {
 			ResultSet rs = stmt.getGeneratedKeys();
 			rs.next();
 			vend.setUniqueId(Integer.valueOf(rs.getInt(1)));
+			stmt.close();
 			return true;
 		}
 		catch (SQLException e) {
@@ -159,6 +162,7 @@ public final class DataRequest {
 			ResultSet rs = stmt.getGeneratedKeys();
 			rs.next();
 			prod.setUniqueId(Integer.valueOf(rs.getInt(1)));
+			stmt.close();
 			return true;
 		}
 		catch (SQLException e) {
@@ -178,6 +182,7 @@ public final class DataRequest {
 			ResultSet rs = stmt.getGeneratedKeys();
 			rs.next();
 			cat.setUniqueId(Integer.valueOf(rs.getInt(1)));
+			stmt.close();
 			return true;
 		}
 		catch (SQLException e) {
@@ -197,6 +202,7 @@ public final class DataRequest {
 			ResultSet rs = stmt.getGeneratedKeys();
 			rs.next();
 			inv.setUniqueId(Integer.valueOf(rs.getInt(1)));
+			stmt.close();
 			return true;
 		}
 		catch (SQLException e) {
@@ -255,6 +261,7 @@ public final class DataRequest {
 			System.out.println("Executing query: " + query); 
 			stmt = conn.createStatement();
 			stmt.execute(query);
+			stmt.close();
 			return true;
 		}
 		catch (SQLException e) {
@@ -310,6 +317,7 @@ public final class DataRequest {
 		query = query.substring(0, query.length() - 5);
 		System.out.println("Executing query: " + query); 
 		stmt = conn.createStatement();
+		Statement secondaryStatement = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(query);
 		Category prodCategory;
 		Vendor prodVendor;
@@ -320,7 +328,8 @@ public final class DataRequest {
 		while(rs.next()){
 			// Fetch product's vendor
 			query = "SELECT * FROM Vendor WHERE id = " + rs.getInt("vendor_id");
-			vendRs = stmt.executeQuery(query);
+			vendRs = secondaryStatement.executeQuery(query);
+			vendRs.next();
 			vendAddress = new Address(
 					vendRs.getString("address_line1"),
 					vendRs.getString("address_line2"),
@@ -336,9 +345,11 @@ public final class DataRequest {
 					vendAddress, 
 					vendRs.getString("email"), 
 					vendRs.getString("status").equals("ACTIVE") ? Status.ACTIVE : Status.ARCHIVED);
+			
 			// Fetch product's category
 			query = "SELECT * FROM Category WHERE id = " + rs.getInt("category_id");
-			catRs = stmt.executeQuery(query);
+			catRs = secondaryStatement.executeQuery(query);
+			catRs.next();
 			prodCategory = new Category(
 					Integer.valueOf(catRs.getInt("id")),
 					catRs.getString("name"),
@@ -358,6 +369,8 @@ public final class DataRequest {
 					null); // TODO: pass product's inventory list
 			results.add(productResult);
 		}
+		secondaryStatement.close();
+		stmt.close();
 		return results;
 	}
 	public static Set<Product> getAll(Product product) throws SQLException {
@@ -365,6 +378,7 @@ public final class DataRequest {
 		String query = "SELECT * FROM Product ";
 		System.out.println("Executing query: " + query); 
 		stmt = conn.createStatement();
+		Statement secondaryStatement = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(query);
 		Category prodCategory = null;
 		Vendor prodVendor = null;
@@ -376,7 +390,8 @@ public final class DataRequest {
 			// Fetch product's vendor
 			if(rs.getInt("vendor_id") > 0){
 				query = "SELECT * FROM Vendor WHERE id = " + rs.getInt("vendor_id");
-				vendRs = stmt.executeQuery(query);
+				vendRs = secondaryStatement.executeQuery(query);
+				vendRs.next();
 				vendAddress = new Address(
 						vendRs.getString("address_line1"),
 						vendRs.getString("address_line2"),
@@ -396,7 +411,8 @@ public final class DataRequest {
 			// Fetch product's category
 			if(rs.getInt("category_id") > 0){
 				query = "SELECT * FROM Category WHERE id = " + rs.getInt("category_id");
-				catRs = stmt.executeQuery(query);
+				catRs = secondaryStatement.executeQuery(query);
+				catRs.next();
 				prodCategory = new Category(
 						Integer.valueOf(catRs.getInt("id")),
 						catRs.getString("name"),
@@ -417,6 +433,8 @@ public final class DataRequest {
 					null); // TODO: pass product's inventory list
 			results.add(productResult);
 		}
+		secondaryStatement.close();
+		stmt.close();
 		return results;
 	}
 	public static Set<Vendor> search(Vendor vendor, List<String> searchTerms) throws SQLException {
@@ -468,6 +486,7 @@ public final class DataRequest {
 					rs.getString("status").equals("ACTIVE") ? Status.ACTIVE : Status.ARCHIVED);
 			results.add(vendorResult);
 		}
+		stmt.close();
 		return results;
 	}
 	
@@ -499,6 +518,7 @@ public final class DataRequest {
 					rs.getString("status").equals("ACTIVE") ? Status.ACTIVE : Status.ARCHIVED);
 			results.add(vendorResult);
 		}
+		stmt.close();
 		return results;
 	}
 	
@@ -532,6 +552,7 @@ public final class DataRequest {
 					rs.getString("status").equals("ACTIVE") ? Status.ACTIVE : Status.ARCHIVED);
 			results.add(categoryResult);
 		}
+		stmt.close();
 		return results;
 	}
 	public static Set<Category> getAll(Category category) throws SQLException {
@@ -549,6 +570,7 @@ public final class DataRequest {
 					rs.getString("status").equals("ACTIVE") ? Status.ACTIVE : Status.ARCHIVED);
 			results.add(categoryResult);
 		}
+		stmt.close();
 		return results;
 	}
 	public static List<Inventory> search(Inventory inventory, List<String> searchTerms) throws SQLException {
@@ -581,6 +603,7 @@ public final class DataRequest {
 					rs.getInt("adjustment"));
 			results.add(inventoryResult);
 		}
+		stmt.close();
 		return results;
 	}
 }
