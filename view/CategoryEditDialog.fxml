@@ -21,7 +21,7 @@
 			</rowConstraints>
 			<children>
 				<Label text="ID" />
-					<TextField fx:id="uniqueIdText" editable="false" GridPane.columnIndex="1" />
+					<TextField fx:id="uniqueIdText" disable="true" editable="false" GridPane.columnIndex="1" />
 				<Label text="Name" GridPane.rowIndex="1" />
 					<TextField fx:id="nameText" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 				<Label text="Status" GridPane.rowIndex="2" />
