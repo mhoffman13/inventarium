@@ -8,8 +8,6 @@ package inventarium.model;
 
 import inventarium.utils.Status;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -20,8 +18,6 @@ public class Category {
 	private final StringProperty name;
 	private final StringProperty status;
 	private final StringProperty description;
-	
-	AtomicInteger seq = new AtomicInteger();
 	
 	/**
 	 * Default Constructor
