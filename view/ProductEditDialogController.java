@@ -65,7 +65,6 @@ public class ProductEditDialogController {
 	public ProductEditDialogController() {
 		statusInputData.add(Status.ACTIVE);
 		statusInputData.add(Status.ARCHIVED);
-		categoryInputData.add(new Category("none",null));
 		Set<Category> categories = null;
 		Set<Vendor> vendors = null;
 		try{
@@ -103,7 +102,7 @@ public class ProductEditDialogController {
 					if (category == null || empty) {
 						setText(null);
 					} else {
-						setText(category.getUniqueId() + " - " + category.getName());
+						setText(category.getName() + " (Id " + category.getUniqueId() + ")");
 					}
 				}
 			};
@@ -118,7 +117,7 @@ public class ProductEditDialogController {
 					if (vendor == null || empty) {
 						setText(null);
 					} else {
-						setText(vendor.getUniqueId() + " - " + vendor.getName());
+						setText(vendor.getName() + " (Id " + vendor.getUniqueId() + ")");
 					}
 				}
 			};
