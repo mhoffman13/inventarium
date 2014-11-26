@@ -139,9 +139,19 @@ public final class DataRequest {
 				+ prod.getSku() + "', "
 				+ prod.getQuantity() + ", "
 				+ prod.getLowQuantity() + ", "
-				+ prod.getCategoryName() + ", "
-				+ prod.getVendorName() + ", "
-				+ (prod.isLow() ? 1 : 0) + ")";
+				+ (prod.isLow() ? 1 : 0);
+		if(prod.getCategoryName()==null){
+			query += ", " + null;
+		}else{
+			query += ", " + prod.getCategory().getUniqueId();
+		}
+		if(prod.getVendorName()==null){
+			query += ", " + null; 
+		}else{
+			query += ", " + prod.getVendor().getUniqueId();
+		}
+		query += ")";
+				 
 		try {
 			System.out.println("Executing query: " + query); 
 			stmt = conn.createStatement();
