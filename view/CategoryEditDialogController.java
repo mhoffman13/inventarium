@@ -18,11 +18,6 @@ import javafx.stage.Stage;
 
 import org.controlsfx.dialog.Dialogs;
 
-/**
- * Dialog to edit details of a person.
- * 
- * @author Marco Jakob
- */
 public class CategoryEditDialogController {
 	
 	@FXML
