@@ -3,8 +3,11 @@ package inventarium;
 /**
  * Handles the main system for the application
  * @author Meredith Hoffman
- * This project is based on code from the Java8 FX 
- * tutorial at http://code.makery.ch/
+ * 
+ * This project is based on code from the Java8 FX tutorial 
+ * at http://code.makery.ch/java/javafx-8-tutorial-intro/
+ * The tutorial's @author Marco Jakob provided fantastic
+ * guidance and the perfect blueprint for this system.
  */
 
 import java.io.IOException;
