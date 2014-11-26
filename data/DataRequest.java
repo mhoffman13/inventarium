@@ -132,7 +132,7 @@ public final class DataRequest {
 	}
 	public static boolean insertRecord( Product prod ) {
 		String query = "INSERT INTO Product (name, description, status, sku, quantity, "
-				+ "low_quantity, category_id, vendor_id, is_low ) VALUES ('"
+				+ "is_low, low_quantity, category_id, vendor_id ) VALUES ('"
 				+ prod.getName() + "', '"
 				+ prod.getDescription() + "', '"
 				+ prod.getStatus() + "', '"
