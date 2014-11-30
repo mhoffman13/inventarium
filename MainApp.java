@@ -12,7 +12,9 @@ package inventarium;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javafx.application.Application;
@@ -29,6 +31,7 @@ import javafx.stage.WindowEvent;
 import inventarium.model.*;
 import inventarium.view.CategoryEditDialogController;
 import inventarium.view.CategoryOverviewController;
+import inventarium.view.InventoryOverviewController;
 import inventarium.view.ProductEditDialogController;
 import inventarium.view.ProductOverviewController;
 import inventarium.view.RootController;
@@ -44,6 +47,7 @@ public class MainApp extends Application {
 	private ObservableList<Category> categoryData = FXCollections.observableArrayList();
 	private ObservableList<Product> productData = FXCollections.observableArrayList();
 	private ObservableList<Vendor> vendorData = FXCollections.observableArrayList();
+	private ObservableList<Inventory> inventoryData = FXCollections.observableArrayList();
 	
 	/**
 	 * Default Constructor
@@ -53,11 +57,12 @@ public class MainApp extends Application {
 		Set<Product> productList = new HashSet<>();
 		Set<Vendor> vendorList = new HashSet<>();
 		Set<Category> categoryList = new HashSet<>();
+		List<Inventory> inventoryList = new ArrayList<>();
 		try {
 			productList = DataRequest.getAll(new Product());
 			vendorList = DataRequest.getAll(new Vendor());
 			categoryList = DataRequest.getAll(new Category());
-			
+			inventoryList = DataRequest.getAll(new Inventory());		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -69,6 +74,9 @@ public class MainApp extends Application {
 		}
 		for(Category c : categoryList){
 			categoryData.add(c);
+		}
+		for(Inventory i : inventoryList){
+			inventoryData.add(i);
 		}
 	}
 	
@@ -94,6 +102,14 @@ public class MainApp extends Application {
 	 */
 	public ObservableList<Vendor> getVendorData() {
 		return vendorData;
+	}
+	
+	/**
+	 * Returns the data as an observable list of Inventories 
+	 * @return
+	 */
+	public ObservableList<Inventory> getInventoryData() {
+		return inventoryData;
 	}
 	
 	@Override
@@ -140,16 +156,16 @@ public class MainApp extends Application {
 	}
 	
 	/**
-	 * Shows the person overview
+	 * Shows the category overview
 	 */
 	public void showCategoryOverview() {
 		try {
-			// Load person overview.
+			// Load category overview.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/CategoryOverview.fxml"));
 			AnchorPane categoryOverview = (AnchorPane) loader.load();
 			
-			// Set person overview into the center of root layout.
+			// Set category overview into the center of root layout.
 			rootLayout.setCenter(categoryOverview);
 			
 			// Give the controller access to the main app.
@@ -214,16 +230,38 @@ public class MainApp extends Application {
 	}
 	
 	/**
-	 * Shows the person overview
+	 * Shows the inventory overview
+	 */
+	public void showInventoryOverview() {
+		try {
+			// Load inventory overview.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/InventoryOverview.fxml"));
+			AnchorPane inventoryOverview = (AnchorPane) loader.load();
+			
+			// Set inventory overview into the center of root layout.
+			rootLayout.setCenter(inventoryOverview);
+			
+			// Give the controller access to the main app.
+			InventoryOverviewController controller = loader.getController();
+			controller.setMainApp(this);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Shows the product overview
 	 */
 	public void showProductOverview() {
 		try {
-			// Load person overview.
+			// Load product overview.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/ProductOverview.fxml"));
 			AnchorPane productOverview = (AnchorPane) loader.load();
 			
-			// Set person overview into the center of root layout.
+			// Set product overview into the center of root layout.
 			rootLayout.setCenter(productOverview);
 			
 			// Give the controller access to the main app.
@@ -280,8 +318,9 @@ public class MainApp extends Application {
 				}
 				// Do we need to add a new inventory record?
 				if(dataUpdated && (isNew || product.isQtyUpdated())){
-					Inventory inventory = new Inventory(product.getQtyUpdateAmount(), product.getUniqueId());
+					Inventory inventory = new Inventory(product.getQtyUpdateAmount(), product.getUniqueId(), product.getName());
 					dataUpdated = DataRequest.insertRecord(inventory);
+					inventoryData.add(inventory);
 				}
 			}
 			
@@ -297,12 +336,12 @@ public class MainApp extends Application {
 	 */
 	public void showVendorOverview() {
 		try {
-			// Load person overview.
+			// Load vendor overview.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/VendorOverview.fxml"));
 			AnchorPane vendorOverview = (AnchorPane) loader.load();
 			
-			// Set person overview into the center of root layout.
+			// Set vendor overview into the center of root layout.
 			rootLayout.setCenter(vendorOverview);
 			
 			// Give the controller access to the main app.

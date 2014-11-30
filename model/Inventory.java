@@ -17,22 +17,31 @@ import javafx.beans.property.StringProperty;
 
 public class Inventory {
 	private final IntegerProperty uniqueId;
-	private final IntegerProperty adjustment;
 	private final IntegerProperty productId;
+	private final StringProperty adjustment;
+	private final StringProperty productName;
 	private final StringProperty date;
+	
+	/** 
+	 * Default Constructor
+	 */
+	public Inventory(){
+		this(null,null,null);
+	}
 	
 	/**
 	 * Constructor with adjustment and product id
 	 * @param adjustment
 	 * @param productId
 	 */
-	public Inventory(int adjustment, int productId) {
+	public Inventory(Integer adjustment, Integer productId, String productName) {
 		this.uniqueId = new SimpleIntegerProperty();
-		this.adjustment = new SimpleIntegerProperty(adjustment);
-		this.productId = new SimpleIntegerProperty(productId);
+		this.adjustment = new SimpleStringProperty(adjustment == null ? null : adjustment.toString());
+		this.productId = new SimpleIntegerProperty(productId == null ? 0 : productId);
 		Calendar today = Calendar.getInstance();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy");
 		this.date = new SimpleStringProperty(dateFormat.format(today.getTime()));
+		this.productName = new SimpleStringProperty(productName);
 	}
 
 	/**
@@ -42,12 +51,13 @@ public class Inventory {
 	 * @param productId
 	 * @param date
 	 */
-	public Inventory(int uniqueId, int productId, Date date, int adjustment) {
+	public Inventory(Integer uniqueId, Integer productId, Date date, Integer adjustment) {
 		this.uniqueId = new SimpleIntegerProperty(uniqueId);
-		this.adjustment = new SimpleIntegerProperty(adjustment);
-		this.productId = new SimpleIntegerProperty(productId);
+		this.adjustment = new SimpleStringProperty(adjustment == null ? null : adjustment.toString());
+		this.productId = new SimpleIntegerProperty(productId == null ? 0 : productId);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy");
 		this.date = new SimpleStringProperty(dateFormat.format(date));
+		this.productName = new SimpleStringProperty();
 	}
 
 	public IntegerProperty uniqueIdProperty() {
@@ -62,16 +72,16 @@ public class Inventory {
 		this.uniqueIdProperty().set(uniqueId);
 	}
 
-	public IntegerProperty adjustmentProperty() {
+	public StringProperty adjustmentProperty() {
 		return this.adjustment;
 	}
 
-	public int getAdjustment() {
+	public String getAdjustment() {
 		return this.adjustmentProperty().get();
 	}
 
 	public void setAdjustment(int adjustment) {
-		this.adjustmentProperty().set(adjustment);
+		this.adjustmentProperty().set(Integer.toString(adjustment));
 	}
 
 	public IntegerProperty productIdProperty() {
@@ -84,6 +94,18 @@ public class Inventory {
 
 	public void setProductId(final int productId) {
 		this.productIdProperty().set(productId);
+	}
+	
+	public StringProperty productNameProperty() {
+		return this.productName;
+	}
+
+	public String getProductName() {
+		return this.productNameProperty().get();
+	}
+
+	public void setProductName(String name) {
+		this.productNameProperty().set(name);
 	}
 	
 	public StringProperty dateProperty() {

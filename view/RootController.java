@@ -50,7 +50,7 @@ public class RootController {
 
 	@FXML
 	void showInventoryOverview(ActionEvent event) {
-		
+		mainApp.showInventoryOverview();
 	}
 	
 	public boolean shutdown() {

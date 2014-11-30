@@ -103,9 +103,6 @@ public class ProductOverviewController {
 			categoryNameLabel.setText(product.getCategoryName());
 			quantityLabel.setText(Integer.toString(product.getQuantity()));
 			lowQuantityLabel.setText(Integer.toString(product.getLowQuantity()));
-			
-			// TODO: We need a way to convert the birthday into a String!
-			// birthdayLabel.setText(...);
 		} else {
 			// Product is null, remove all the text.
 			nameLabel.setText("");

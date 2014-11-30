@@ -614,4 +614,23 @@ public final class DataRequest {
 		stmt.close();
 		return results;
 	}
+	
+	public static List<Inventory> getAll(Inventory inventory) throws SQLException {
+		List<Inventory> results = new ArrayList<Inventory>();
+		String query = "SELECT * FROM Inventory";
+		System.out.println("Executing query: " + query); 
+		stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(query);
+		Inventory inventoryResult;
+		while(rs.next()){
+			inventoryResult = new Inventory(
+					Integer.valueOf(rs.getInt("id")),
+					Integer.valueOf(rs.getInt("product_id")),
+					rs.getDate("date"),
+					rs.getInt("adjustment"));
+			results.add(inventoryResult);
+		}
+		stmt.close();
+		return results;
+	}
 }
