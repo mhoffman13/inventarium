@@ -18,12 +18,14 @@ import java.util.Set;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import inventarium.model.*;
 import inventarium.view.CategoryEditDialogController;
 import inventarium.view.CategoryOverviewController;
@@ -123,6 +125,14 @@ public class MainApp extends Application {
 	        controller.setMainApp(this);
 	        
 	        primaryStage.show();
+	        
+	        scene.getWindow().setOnCloseRequest(new EventHandler<WindowEvent>() {
+	            public void handle(WindowEvent ev) {
+	                if (!controller.shutdown()) {
+	                    ev.consume();
+	                }
+	            }
+	        });
 	        
 		} catch (IOException e) {
 			e.printStackTrace();

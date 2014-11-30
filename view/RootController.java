@@ -5,9 +5,14 @@ package inventarium.view;
  * @author Meredith Hoffman
  */
 
+import org.controlsfx.control.action.Action;
+import org.controlsfx.dialog.Dialog;
+import org.controlsfx.dialog.Dialogs;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import inventarium.MainApp;
+import inventarium.data.DataRequest;
 
 public class RootController {
 	@FXML
@@ -46,6 +51,16 @@ public class RootController {
 	@FXML
 	void showInventoryOverview(ActionEvent event) {
 		
+	}
+	
+	public boolean shutdown() {
+		Action response = Dialogs.create()
+				.owner(mainApp.getPrimaryStage())
+				.title("Confirm Exit")
+				.message("Are you sure you want to exit?")
+				.showConfirm();
+				
+		return response == Dialog.Actions.YES;
 	}
 	
 	public void initialize(){
