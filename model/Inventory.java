@@ -1,74 +1,100 @@
 package inventarium.model;
 
+/**
+ * Inventory model represents an inventory
+ * transaction in the inventory system
+ * @author Meredith Hoffman
+ */
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Inventory {
-	Integer uniqueId;
-	Integer productId;
-	Date date;
-	int adjustment;
+	private final IntegerProperty uniqueId;
+	private final IntegerProperty adjustment;
+	private final IntegerProperty productId;
+	private final StringProperty date;
 	
 	/**
-	 * @param uniqueId 
-	 * @param productId
-	 * @param vendorId
-	 * @param date
+	 * Constructor with adjustment and product id
 	 * @param adjustment
+	 * @param productId
 	 */
-	public Inventory(Integer uniqueId, Integer productId, Date date, 
-			int adjustment) {
-		this.uniqueId = uniqueId;
-		this.productId = productId;
-		this.date = date;
-		this.adjustment = adjustment;
+	public Inventory(int adjustment, int productId) {
+		this.uniqueId = new SimpleIntegerProperty();
+		this.adjustment = new SimpleIntegerProperty(adjustment);
+		this.productId = new SimpleIntegerProperty(productId);
+		Calendar today = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy");
+		this.date = new SimpleStringProperty(dateFormat.format(today.getTime()));
+	}
+
+	/**
+	 * Constructor with adjustment, product id, unique id, and date
+	 * @param uniqueId
+	 * @param adjustment
+	 * @param productId
+	 * @param date
+	 */
+	public Inventory(int uniqueId, int productId, Date date, int adjustment) {
+		this.uniqueId = new SimpleIntegerProperty(uniqueId);
+		this.adjustment = new SimpleIntegerProperty(adjustment);
+		this.productId = new SimpleIntegerProperty(productId);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy");
+		this.date = new SimpleStringProperty(dateFormat.format(date));
+	}
+
+	public IntegerProperty uniqueIdProperty() {
+		return this.uniqueId;
+	}
+
+	public int getUniqueId() {
+		return this.uniqueIdProperty().get();
+	}
+
+	public void setUniqueId(int uniqueId) {
+		this.uniqueIdProperty().set(uniqueId);
+	}
+
+	public IntegerProperty adjustmentProperty() {
+		return this.adjustment;
+	}
+
+	public int getAdjustment() {
+		return this.adjustmentProperty().get();
+	}
+
+	public void setAdjustment(int adjustment) {
+		this.adjustmentProperty().set(adjustment);
+	}
+
+	public IntegerProperty productIdProperty() {
+		return this.productId;
+	}
+
+	public int getProductId() {
+		return this.productIdProperty().get();
+	}
+
+	public void setProductId(final int productId) {
+		this.productIdProperty().set(productId);
 	}
 	
-	/**
-	 * @return the uniqueId
-	 */
-	public Integer getUniqueId() {
-		return uniqueId;
+	public StringProperty dateProperty() {
+		return this.date;
 	}
-	/**
-	 * @param uniqueId the uniqueId to set
-	 */
-	public void setUniqueId(Integer uniqueId) {
-		this.uniqueId = uniqueId;
+
+	public String getDate() {
+		return this.dateProperty().get();
 	}
-	/**
-	 * @return the product
-	 */
-	public Integer getProductId() {
-		return productId;
-	}
-	/**
-	 * @param product the product to set
-	 */
-	public void setProductId(Integer productId) {
-		this.productId = productId;
-	}
-	/**
-	 * @return the date
-	 */
-	public Date getDate() {
-		return date;
-	}
-	/**
-	 * @param date the date to set
-	 */
-	public void setDate(Date date) {
-		this.date = date;
-	}
-	/**
-	 * @return the adjustment
-	 */
-	public int getAdjustment() {
-		return adjustment;
-	}
-	/**
-	 * @param adjustment the adjustment to set
-	 */
-	public void setAdjustment(int adjustment) {
-		this.adjustment = adjustment;
+
+	public void setDate(String date) {
+		this.dateProperty().set(date);
 	}
 }

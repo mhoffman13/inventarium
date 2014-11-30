@@ -250,7 +250,6 @@ public class ProductEditDialogController {
 				product.setCategoryName(product.getCategory().getName());
 			}
 			
-			
 			okClicked = true;
 			dialogStage.close();
 		}

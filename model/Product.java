@@ -27,6 +27,9 @@ public class Product {
 	private Vendor vendor;
 	private Category category;
 	
+	private boolean qtyUpdated = false;
+	private int qtyUpdateAmount = 0;
+	
 	/**
 	 * Default Constructor
 	 */
@@ -178,6 +181,10 @@ public class Product {
 	}
 
 	public void setQuantity(int quantity) {
+		if(this.getQuantity() != quantity){
+			qtyUpdated = true;
+			qtyUpdateAmount = quantity - this.getQuantity();
+		}
 		this.quantityProperty().set(quantity);
 	}
 
@@ -222,6 +229,20 @@ public class Product {
 
 	public boolean isLow(){
 		return this.quantityProperty().get() <= this.lowQuantityProperty().get(); 
+	}
+
+	/**
+	 * @return the qtyUpdated
+	 */
+	public boolean isQtyUpdated() {
+		return qtyUpdated;
+	}
+
+	/**
+	 * @return the qtyUpdateAmount
+	 */
+	public int getQtyUpdateAmount() {
+		return qtyUpdateAmount;
 	}
 	
 }

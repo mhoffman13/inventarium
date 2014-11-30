@@ -278,6 +278,11 @@ public class MainApp extends Application {
 				}else{
 					dataUpdated = DataRequest.updateRecord(product);
 				}
+				// Do we need to add a new inventory record?
+				if(dataUpdated && (isNew || product.isQtyUpdated())){
+					Inventory inventory = new Inventory(product.getQtyUpdateAmount(), product.getUniqueId());
+					dataUpdated = DataRequest.insertRecord(inventory);
+				}
 			}
 			
 			return dataUpdated;

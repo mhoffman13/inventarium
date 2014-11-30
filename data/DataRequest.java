@@ -195,7 +195,7 @@ public final class DataRequest {
 	public static boolean insertRecord( Inventory inv ) {
 		String query = "INSERT INTO Inventory (product_id, date, adjustment) VALUES ("
 				+ inv.getProductId() + ", '"
-				+ inv.getDate().toString() + "', "
+				+ inv.getDate() + "', "
 				+ inv.getAdjustment() + ")";
 		try {
 			System.out.println("Executing query: " + query); 
