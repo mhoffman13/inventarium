@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventarium.view.VendorOverviewController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@blue-theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventarium.view.VendorOverviewController">
  <children>
   <SplitPane dividerPositions="0.298" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
    <items>
@@ -24,9 +24,9 @@
 			</TableView>
 		</children>
 	</AnchorPane>
-	<AnchorPane minWidth="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+	<AnchorPane minWidth="500.0" prefWidth="500.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 		<children>
-			<Label fx:id="pageTitle" text="Vendor Detail" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+			<Label fx:id="pageTitle" styleClass="label-header" text="Vendor Detail" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
 				<font>
 	   				<Font size="18.0" />
 	   			</font>
@@ -52,28 +52,28 @@
 				</rowConstraints>
 				<children>
 					<Label text="ID" />
-					<Label fx:id="uniqueIdLabel" GridPane.columnIndex="1" />
+					<Label fx:id="uniqueIdLabel" styleClass="label-bright" GridPane.columnIndex="1" />
 					<Label text="Name" GridPane.rowIndex="1" />
-					<Label fx:id="nameLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+					<Label fx:id="nameLabel" styleClass="label-bright" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 					<Label text="Status" GridPane.rowIndex="2" />
-					<Label fx:id="statusLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+					<Label fx:id="statusLabel" styleClass="label-bright" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 					<Label text="Contact Person" GridPane.rowIndex="3" />
-					<Label fx:id="contactNameLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+					<Label fx:id="contactNameLabel" styleClass="label-bright" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 					<Label text="Phone" GridPane.rowIndex="4" />
-					<Label fx:id="phoneLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+					<Label fx:id="phoneLabel" styleClass="label-bright" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 					<Label text="Email" GridPane.rowIndex="5" />
-					<Label fx:id="emailLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+					<Label fx:id="emailLabel" styleClass="label-bright" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 					<Label text="Address" GridPane.halignment="LEFT" GridPane.rowIndex="6" />
 					<Label text="Line 1" GridPane.rowIndex="7" />
-					<Label fx:id="line1Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+					<Label fx:id="line1Label" styleClass="label-bright" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 					<Label text="Line 2" GridPane.rowIndex="8" />
-					<Label fx:id="line2Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+					<Label fx:id="line2Label" styleClass="label-bright" GridPane.columnIndex="1" GridPane.rowIndex="8" />
 					<Label text="City" GridPane.rowIndex="9" />
-					<Label fx:id="cityLabel" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+					<Label fx:id="cityLabel" styleClass="label-bright" GridPane.columnIndex="1" GridPane.rowIndex="9" />
 					<Label text="State" GridPane.rowIndex="10" />
-					<Label fx:id="stateLabel" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+					<Label fx:id="stateLabel" styleClass="label-bright" GridPane.columnIndex="1" GridPane.rowIndex="10" />
 					<Label text="Zip" GridPane.rowIndex="11" />
-                    <Label fx:id="zipLabel" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                    <Label fx:id="zipLabel" styleClass="label-bright" GridPane.columnIndex="1" GridPane.rowIndex="11" />
 				</children>
  			</GridPane>
 			<GridPane alignment="CENTER" prefWidth="320.0" vgap="10.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">

@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventarium.view.ProductOverviewController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@blue-theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventarium.view.ProductOverviewController">
  <children>
-  <SplitPane dividerPositions="0.298" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+  <SplitPane dividerPositions="0.298" layoutX="-6.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="0.0">
    <items>
 	<AnchorPane minWidth="300.0" prefWidth="300.0">
 		<children>
@@ -23,9 +23,9 @@
 			</TableView>
 		</children>
 	</AnchorPane>
-	<AnchorPane minWidth="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+	<AnchorPane minWidth="500.0" prefWidth="500.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 		<children>
-			<Label fx:id="pageTitle" text="Product Detail" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+			<Label fx:id="pageTitle" styleClass="label-header" text="Product Details" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
 				<font>
 	   				<Font size="18.0" />
 	   			</font>
@@ -48,23 +48,23 @@
 				</rowConstraints>
 				<children>
 					<Label text="ID" />
-					<Label fx:id="uniqueIdLabel" GridPane.columnIndex="1" />
+					<Label fx:id="uniqueIdLabel" styleClass="label-bright" GridPane.columnIndex="1" />
 					<Label text="Name" GridPane.rowIndex="1" />
-					<Label fx:id="nameLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+					<Label fx:id="nameLabel" styleClass="label-bright" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 					<Label text="Status" GridPane.rowIndex="2" />
-					<Label fx:id="statusLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+					<Label fx:id="statusLabel" styleClass="label-bright" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 					<Label text="Sku" GridPane.rowIndex="3" />
-					<Label fx:id="skuLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+					<Label fx:id="skuLabel" styleClass="label-bright" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 					<Label text="Quantity" GridPane.rowIndex="4" />
-					<Label fx:id="quantityLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+					<Label fx:id="quantityLabel" styleClass="label-bright" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 					<Label text="Low Quantity" GridPane.rowIndex="5" />
-					<Label fx:id="lowQuantityLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+					<Label fx:id="lowQuantityLabel" styleClass="label-bright" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 					<Label text="Category" GridPane.rowIndex="6" />
-					<Label fx:id="categoryNameLabel" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+					<Label fx:id="categoryNameLabel" styleClass="label-bright" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 					<Label text="Vendor" GridPane.rowIndex="7" />
-					<Label fx:id="vendorNameLabel" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+					<Label fx:id="vendorNameLabel" styleClass="label-bright" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 					<Label text="Description" GridPane.rowIndex="8" />
-					<Label fx:id="descriptionLabel" alignment="TOP_LEFT" prefHeight="50.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+					<Label fx:id="descriptionLabel" alignment="TOP_LEFT" prefHeight="50.0" styleClass="label-bright" GridPane.columnIndex="1" GridPane.rowIndex="8" />
 				</children>
  			</GridPane>
 			<GridPane alignment="CENTER" prefWidth="320.0" vgap="10.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
