@@ -28,6 +28,10 @@
     -fx-opacity: 1;
 }
 
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: white;
+}
+
 .table-view {
     -fx-base: white;
     -fx-control-inner-background: white;
