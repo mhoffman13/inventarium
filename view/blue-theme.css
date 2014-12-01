@@ -1,3 +1,8 @@
+/* 
+ * Based on the style from:
+ * http://code.makery.ch/java/javafx-8-tutorial-part4/
+ */
+
 .background {
     -fx-background-color: white;
 }
@@ -80,6 +85,10 @@
 
 .context-menu {
     -fx-background-color: derive(#1d1d1d,50%);
+}
+
+.context-menu .label{
+	-fx-text-fill: white;
 }
 
 .menu-bar .label {
