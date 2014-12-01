@@ -6,6 +6,9 @@ package inventarium.model;
  * @author Meredith Hoffman
  */
 
+import inventarium.data.DataRequest;
+
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -57,7 +60,13 @@ public class Inventory {
 		this.productId = new SimpleIntegerProperty(productId == null ? 0 : productId);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy");
 		this.date = new SimpleStringProperty(dateFormat.format(date));
-		this.productName = new SimpleStringProperty();
+		String name = null;
+		try{
+			name = DataRequest.findProductName(uniqueId);
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		this.productName = new SimpleStringProperty(name == null ? "No name" : name);
 	}
 
 	public IntegerProperty uniqueIdProperty() {

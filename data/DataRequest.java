@@ -292,8 +292,31 @@ public final class DataRequest {
 		String query = "DELETE FROM Category WHERE id=" + id;
 		return runQuery(query);
 	}
-	public static Set<Product> search(Product product, List<String> searchTerms) throws SQLException {
-		Set<Product> results = new HashSet<Product>();
+	public static String findProductName(Integer id) throws SQLException {
+		List<Product> results = new ArrayList<Product>();
+		String query = "SELECT * FROM Product WHERE id=" + id;
+		System.out.println("Executing query: " + query); 
+		stmt = conn.createStatement();
+		Statement secondaryStatement = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(query);
+		Product productResult;
+		while(rs.next()){
+			// Build product
+			productResult = new Product();
+			productResult.setName(rs.getString("name"));
+			results.add(productResult);
+		}
+		if(results.isEmpty()){
+			System.out.println("No name found for product id " + id);
+			return "No name";
+		}
+		String name = results.get(0).getName();
+		secondaryStatement.close();
+		stmt.close();
+		return name;
+	}
+	public static List<Product> search(Product product, List<String> searchTerms) throws SQLException {
+		List<Product> results = new ArrayList<Product>();
 		String query = "SELECT * FROM Product WHERE ";// + columnName + "='" + searchTerm + "'";
 		for (String term : searchTerms) {
 		    // iterate through searchTerms
