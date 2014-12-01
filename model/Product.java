@@ -241,6 +241,13 @@ public class Product {
 	public boolean isQtyUpdated() {
 		return qtyUpdated;
 	}
+	
+	/**
+	 * @param if qtyUpdated
+	 */
+	public void setQtyUpdated(boolean val){
+		this.qtyUpdated = val;
+	}
 
 	/**
 	 * @return the qtyUpdateAmount

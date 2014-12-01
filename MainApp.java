@@ -321,6 +321,7 @@ public class MainApp extends Application {
 					Inventory inventory = new Inventory(product.getQtyUpdateAmount(), product.getUniqueId(), product.getName());
 					dataUpdated = DataRequest.insertRecord(inventory);
 					inventoryData.add(inventory);
+					product.setQtyUpdated(false);
 				}
 			}
 			
