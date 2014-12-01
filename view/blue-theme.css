@@ -65,8 +65,13 @@
     -fx-background-color: transparent, white;
 }
 
+.split-pane:vertical > .split-pane-divider {
+    -fx-border-color: transparent white white;
+    -fx-background-color: transparent, white;
+}
+
 .split-pane {
-    -fx-padding: 1 0 0 0;
+    -fx-padding: 0;
 }
 
 .menu-bar {

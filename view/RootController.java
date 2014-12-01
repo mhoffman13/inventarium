@@ -12,7 +12,6 @@ import org.controlsfx.dialog.Dialogs;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import inventarium.MainApp;
-import inventarium.data.DataRequest;
 
 public class RootController {
 	@FXML

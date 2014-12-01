@@ -6,19 +6,12 @@ package inventarium.view;
  * @author Meredith Hoffman
  */
 
-import org.controlsfx.control.action.Action;
-import org.controlsfx.dialog.Dialog;
-import org.controlsfx.dialog.Dialogs;
-
-import javafx.beans.property.IntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import inventarium.MainApp;
-import inventarium.data.DataRequest;
 import inventarium.model.Inventory;
-import inventarium.model.Product;
 
 public class InventoryOverviewController {
 	@FXML
