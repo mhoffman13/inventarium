@@ -294,25 +294,17 @@ public final class DataRequest {
 		return runQuery(query);
 	}
 	public static String findProductName(Integer id) throws SQLException {
-		List<Product> results = new ArrayList<Product>();
 		String query = "SELECT * FROM Product WHERE id=" + id;
 		System.out.println("Executing query: " + query); 
 		stmt = conn.createStatement();
-		Statement secondaryStatement = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(query);
-		Product productResult;
-		while(rs.next()){
-			// Build product
-			productResult = new Product();
-			productResult.setName(rs.getString("name"));
-			results.add(productResult);
-		}
-		if(results.isEmpty()){
+		String name;
+		if(rs.next())
+			name = rs.getString("name");
+		else {
 			System.out.println("No name found for product id " + id);
-			return "No name";
+			name = "No name";
 		}
-		String name = results.get(0).getName();
-		secondaryStatement.close();
 		stmt.close();
 		return name;
 	}
