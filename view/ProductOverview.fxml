@@ -15,7 +15,11 @@
 			<TableView fx:id="productTable" layoutX="17.0" prefHeight="598.0" prefWidth="234.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 				<columns>
 					<TableColumn fx:id="nameColumn" minWidth="25.0" prefWidth="-1.0" text="Name" />
-					<TableColumn fx:id="descriptionColumn" minWidth="75.0" prefWidth="-1.0" text="Description" />
+					<TableColumn fx:id="qtyColumn" prefWidth="-1.0" text="Qty" />
+                        <TableColumn fx:id="lowColumn" prefWidth="-1.0" text="Low" />
+                        <TableColumn fx:id="descriptionColumn" minWidth="25.0" prefWidth="-1.0" text="Description" />
+                        <TableColumn fx:id="categoryColumn" minWidth="15.0" prefWidth="-1.0" text="Category" />
+                        <TableColumn fx:id="vendorColumn" minWidth="25.0" prefWidth="-1.0" text="Vendor" />
 				</columns>
 				<columnResizePolicy>
 					<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -23,7 +27,7 @@
 			</TableView>
 		</children>
 	</AnchorPane>
-	<AnchorPane minWidth="500.0" prefWidth="500.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+	<AnchorPane maxWidth="400.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 		<children>
 			<Label fx:id="pageTitle" styleClass="label-header" text="Product Details" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
 				<font>
