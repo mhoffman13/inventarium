@@ -7,8 +7,9 @@ package inventarium.model;
  */
 
 import inventarium.utils.Status;
-
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -23,6 +24,7 @@ public class Product {
 	private final StringProperty categoryName;
 	private final IntegerProperty quantity;
 	private final IntegerProperty lowQuantity;
+	private final BooleanProperty isLow;
 	
 	private Vendor vendor;
 	private Category category;
@@ -52,6 +54,7 @@ public class Product {
 		this.categoryName = new SimpleStringProperty();
 		this.quantity = new SimpleIntegerProperty(0);
 		this.lowQuantity = new SimpleIntegerProperty(-1);
+		this.isLow = new SimpleBooleanProperty(false);
 		this.category = new Category();
 		this.vendor = new Vendor();
 	}
@@ -79,7 +82,7 @@ public class Product {
 		this.categoryName = new SimpleStringProperty();
 		this.vendor = vendor;
 		this.category = category;
-		
+		this.isLow = new SimpleBooleanProperty();
 		if(vendor != null && vendor.getName() != null){
 			setVendorName(vendor.getName());
 		}
@@ -186,6 +189,7 @@ public class Product {
 			qtyUpdateAmount = quantity - this.getQuantity();
 		}
 		this.quantityProperty().set(quantity);
+		this.isLowProperty().set(quantity <= getLowQuantity());
 	}
 
 	public IntegerProperty lowQuantityProperty() {
@@ -226,9 +230,9 @@ public class Product {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-
-	public boolean isLow(){
-		return this.quantityProperty().get() <= this.lowQuantityProperty().get(); 
+	
+	public BooleanProperty isLowProperty(){
+		return this.isLow;
 	}
 
 	/**

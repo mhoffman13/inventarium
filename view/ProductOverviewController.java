@@ -25,6 +25,14 @@ public class ProductOverviewController {
 	private TableColumn<Product, String> nameColumn;
 	@FXML
 	private TableColumn<Product, String> descriptionColumn;
+	@FXML
+	private TableColumn<Product, String> vendorColumn;
+	@FXML
+	private TableColumn<Product, String> categoryColumn;
+	@FXML
+	private TableColumn<Product, String> qtyColumn;
+	@FXML
+	private TableColumn<Product, String> lowColumn;
 	
 	@FXML
 	private Label nameLabel;
@@ -64,6 +72,10 @@ public class ProductOverviewController {
 		// Initialize the product table with the two columns.
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		descriptionColumn.setCellValueFactory(cellData -> cellData.getValue().descriptionProperty());
+		qtyColumn.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asString());
+		lowColumn.setCellValueFactory(cellData -> cellData.getValue().isLowProperty().asString());
+		categoryColumn.setCellValueFactory(cellData -> cellData.getValue().categoryNameProperty());
+		vendorColumn.setCellValueFactory(cellData -> cellData.getValue().vendorNameProperty());
 		
 		// Clear product details.
 		showProductDetails(null);

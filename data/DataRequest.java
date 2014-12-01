@@ -25,7 +25,7 @@ import java.util.Set;
 public final class DataRequest {
 	private DataRequest() {}
 	private static String driver = "org.apache.derby.jdbc.EmbeddedDriver";
-	private static String dbName="DB";
+	private static String dbName="qa_ivt_db";
 	private static Connection conn = null;
 	private static Statement stmt = null;
 	public static void initialize(){
@@ -144,7 +144,7 @@ public final class DataRequest {
 				+ prod.getSku() + "', "
 				+ prod.getQuantity() + ", "
 				+ prod.getLowQuantity() + ", "
-				+ (prod.isLow() ? 1 : 0);
+				+ (prod.isLowProperty().get() ? 1 : 0);
 		if(prod.getCategoryName()==null || prod.getCategory().getUniqueId()==0){
 			query += ", " + null;
 		}else{
@@ -236,7 +236,7 @@ public final class DataRequest {
 				+ "sku='" + prod.getSku() + "', "
 				+ "quantity=" + prod.getQuantity() + ", "
 				+ "low_quantity=" + prod.getLowQuantity() + ", "
-				+ "is_low=" + (prod.isLow() ? 1 : 0) + ", ";
+				+ "is_low=" + (prod.isLowProperty().get() ? 1 : 0) + ", ";
 		if(prod.getCategory() == null || prod.getCategory().getUniqueId() == 0)
 			query += "category_id=null, ";
 		else
@@ -340,7 +340,7 @@ public final class DataRequest {
 			}else if(term.equalsIgnoreCase("category")){
 				query += "category_id=" + product.getCategoryName();
 			}else if(term.equalsIgnoreCase("isLow")){
-				query += "is_low=" + (product.isLow() ? 1 : 0);
+				query += "is_low=" + (product.isLowProperty().get() ? 1 : 0);
 			}
 			query += " and ";
 		}
