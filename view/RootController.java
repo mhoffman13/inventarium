@@ -11,11 +11,14 @@ import org.controlsfx.dialog.Dialogs;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Menu;
 import inventarium.MainApp;
 
 public class RootController {
 	@FXML
 	private MainApp mainApp;
+	@FXML
+	private Menu selectedMenu;
 
 	/**
 	 * Default Constructor
@@ -34,21 +37,25 @@ public class RootController {
 	
 	@FXML
 	void showProductOverview(ActionEvent event) {
+		selectedMenu.setText("Products");
 		mainApp.showProductOverview();
 	}
         
 	@FXML
 	void showVendorOverview(ActionEvent event) {
+		selectedMenu.setText("Vendors");
 		mainApp.showVendorOverview();
 	}
 
 	@FXML
 	void showCategoryOverview(ActionEvent event) {
+		selectedMenu.setText("Categories");
 		mainApp.showCategoryOverview();
 	}
 
 	@FXML
 	void showInventoryOverview(ActionEvent event) {
+		selectedMenu.setText("Inventory");
 		mainApp.showInventoryOverview();
 	}
 	

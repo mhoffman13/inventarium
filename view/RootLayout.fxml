@@ -9,7 +9,7 @@
 	<top>
 		<MenuBar BorderPane.alignment="CENTER">
    <menus>
-   			<Menu text="Menu">
+   			<Menu fx:id="selectedMenu" text="Menu">
       <items>
       				<MenuItem mnemonicParsing="false" onAction="#showInventoryOverview" text="Inventory" />
       				<MenuItem mnemonicParsing="false" onAction="#showProductOverview" text="Products" />
