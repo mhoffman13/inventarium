@@ -107,20 +107,23 @@ public final class DataRequest {
 			return false;
 		}
 	}
+	private static String sanitize(String input) {
+		return input.replaceAll("'", "''");
+	}
 	public static boolean insertRecord( Vendor vend ) {
 		String query = "INSERT INTO Vendor (name, status, description, address_line1, address_line2, "
 				+ "address_city, address_state, address_zip, phone, email, contact_name) VALUES ('"
-				+ vend.getName() + "', '"
+				+ sanitize(vend.getName()) + "', '"
 				+ vend.getStatus() + "', '"
-				+ vend.getDescription() + "', '"
-				+ vend.getAddress().getLine1() + "', '"
-				+ vend.getAddress().getLine2() + "', '"
-				+ vend.getAddress().getCity() + "', '"
-				+ vend.getAddress().getState() + "', '"
-				+ vend.getAddress().getZip() + "', '"
-				+ vend.getPhone() + "', '"
-				+ vend.getEmail() + "', '"
-				+ vend.getContactName() + "')";
+				+ sanitize(vend.getDescription()) + "', '"
+				+ sanitize(vend.getAddress().getLine1()) + "', '"
+				+ sanitize(vend.getAddress().getLine2()) + "', '"
+				+ sanitize(vend.getAddress().getCity()) + "', '"
+				+ sanitize(vend.getAddress().getState()) + "', '"
+				+ sanitize(vend.getAddress().getZip()) + "', '"
+				+ sanitize(vend.getPhone()) + "', '"
+				+ sanitize(vend.getEmail()) + "', '"
+				+ sanitize(vend.getContactName()) + "')";
 		try {
 			System.out.println("Executing query: " + query); 
 			stmt = conn.createStatement();
@@ -139,10 +142,10 @@ public final class DataRequest {
 	public static boolean insertRecord( Product prod ) {
 		String query = "INSERT INTO Product (name, description, status, sku, quantity, "
 				+ "low_quantity, is_low, category_id, vendor_id ) VALUES ('"
-				+ prod.getName() + "', '"
-				+ prod.getDescription() + "', '"
+				+ sanitize(prod.getName()) + "', '"
+				+ sanitize(prod.getDescription()) + "', '"
 				+ prod.getStatus() + "', '"
-				+ prod.getSku() + "', "
+				+ sanitize(prod.getSku()) + "', "
 				+ prod.getQuantity() + ", "
 				+ prod.getLowQuantity() + ", "
 				+ (prod.isLowProperty().get() ? 1 : 0);
@@ -175,8 +178,8 @@ public final class DataRequest {
 	}
 	public static boolean insertRecord( Category cat ) {
 		String query = "INSERT INTO Category (name, description, status) VALUES ('"
-				+ cat.getName() + "', '"
-				+ cat.getDescription() + "', '"
+				+ sanitize(cat.getName()) + "', '"
+				+ sanitize(cat.getDescription()) + "', '"
 				+ cat.getStatus() + "')";
 		try {
 			System.out.println("Executing query: " + query); 
@@ -215,26 +218,26 @@ public final class DataRequest {
 	}
 	public static boolean updateRecord( Vendor vend ) {
 		String query = "UPDATE Vendor SET "
-				+ "name='" + vend.getName() + "', "
+				+ "name='" + sanitize(vend.getName()) + "', "
 				+ "status='" + vend.getStatus() + "', "
-				+ "description='" + vend.getDescription() + "', "
-				+ "address_line1='" + vend.getAddress().getLine1() + "', "
-				+ "address_line2='" + vend.getAddress().getLine2() + "', "
-				+ "address_city='" + vend.getAddress().getCity() + "', "
-				+ "address_state='" + vend.getAddress().getState() + "', "
-				+ "address_zip='" + vend.getAddress().getZip() + "', "
-				+ "phone='" + vend.getPhone() + "', "
-				+ "email='" + vend.getEmail() + "', "
-				+ "contact_name='" + vend.getContactName() + "' "
+				+ "description='" + sanitize(vend.getDescription()) + "', "
+				+ "address_line1='" + sanitize(vend.getAddress().getLine1()) + "', "
+				+ "address_line2='" + sanitize(vend.getAddress().getLine2()) + "', "
+				+ "address_city='" + sanitize(vend.getAddress().getCity()) + "', "
+				+ "address_state='" + sanitize(vend.getAddress().getState()) + "', "
+				+ "address_zip='" + sanitize(vend.getAddress().getZip()) + "', "
+				+ "phone='" + sanitize(vend.getPhone()) + "', "
+				+ "email='" + sanitize(vend.getEmail()) + "', "
+				+ "contact_name='" + sanitize(vend.getContactName()) + "' "
 				+ "WHERE id = " + vend.getUniqueId();
 		return runQuery(query);
 	}
 	public static boolean updateRecord( Product prod ) {
 		String query = "UPDATE Product SET "
-				+ "name='" + prod.getName() + "', "
-				+ "description='" + prod.getDescription() + "', "
+				+ "name='" + sanitize(prod.getName()) + "', "
+				+ "description='" + sanitize(prod.getDescription()) + "', "
 				+ "status='" + prod.getStatus() + "', "
-				+ "sku='" + prod.getSku() + "', "
+				+ "sku='" + sanitize(prod.getSku()) + "', "
 				+ "quantity=" + prod.getQuantity() + ", "
 				+ "low_quantity=" + prod.getLowQuantity() + ", "
 				+ "is_low=" + (prod.isLowProperty().get() ? 1 : 0) + ", ";
@@ -251,8 +254,8 @@ public final class DataRequest {
 	}
 	public static boolean updateRecord( Category cat ) {
 		String query = "UPDATE Category SET "
-				+ "name='" + cat.getName() + "', "
-				+ "description='" + cat.getDescription() + "', "
+				+ "name='" + sanitize(cat.getName()) + "', "
+				+ "description='" + sanitize(cat.getDescription()) + "', "
 				+ "status='" + cat.getStatus() + "' "
 				+ "WHERE id = " + cat.getUniqueId();
 		return runQuery(query);
@@ -317,13 +320,13 @@ public final class DataRequest {
 			if(term.equalsIgnoreCase("uniqueId")){
 				query += "id=" + product.getUniqueId();
 			}else if(term.equalsIgnoreCase("name")){
-				query += "name LIKE '" + product.getName() + "'";
+				query += "name LIKE '" + sanitize(product.getName()) + "'";
 			}else if(term.equalsIgnoreCase("status")){
 				query += "status='" + product.getStatus() + "'";
 			}else if(term.equalsIgnoreCase("description")){
-				query += "description LIKE '" + product.getDescription() + "'";
+				query += "description LIKE '" + sanitize(product.getDescription()) + "'";
 			}else if(term.equalsIgnoreCase("sku")){
-				query += "sku LIKE '" + product.getSku() + "'";
+				query += "sku LIKE '" + sanitize(product.getSku()) + "'";
 			}else if(term.equalsIgnoreCase("quantity")){
 				query += "quantity=" + product.getQuantity();
 			}else if(term.equalsIgnoreCase("lowQuantity")){
@@ -469,15 +472,15 @@ public final class DataRequest {
 			if(term.equalsIgnoreCase("uniqueId")){
 				query += "id=" + vendor.getUniqueId();
 			}else if(term.equalsIgnoreCase("name")){
-				query += "name LIKE '" + vendor.getName() + "'";
+				query += "name LIKE '" + sanitize(vendor.getName()) + "'";
 			}else if(term.equalsIgnoreCase("description")){
-				query += "description LIKE '" + vendor.getDescription() + "'";
+				query += "description LIKE '" + sanitize(vendor.getDescription()) + "'";
 			}else if(term.equalsIgnoreCase("contactName")){
-				query += "contact_name LIKE '" + vendor.getContactName() + "'";
+				query += "contact_name LIKE '" + sanitize(vendor.getContactName()) + "'";
 			}else if(term.equalsIgnoreCase("phone")){
-				query += "phone='" + vendor.getPhone() + "'";
+				query += "phone='" + sanitize(vendor.getPhone()) + "'";
 			}else if(term.equalsIgnoreCase("email")){
-				query += "email LIKE '" + vendor.getDescription() + "'";
+				query += "email LIKE '" + sanitize(vendor.getDescription()) + "'";
 			}else if(term.equalsIgnoreCase("status")){
 				query += "status='" + vendor.getStatus() + "'";
 			}
@@ -554,9 +557,9 @@ public final class DataRequest {
 			if(term.equalsIgnoreCase("uniqueId")){
 				query += "id=" + category.getUniqueId();
 			}else if(term.equalsIgnoreCase("name")){
-				query += "name LIKE '" + category.getName() + "'";
+				query += "name LIKE '" + sanitize(category.getName()) + "'";
 			}else if(term.equalsIgnoreCase("description")){
-				query += "description LIKE '" + category.getDescription() + "'";
+				query += "description LIKE '" + sanitize(category.getDescription()) + "'";
 			}else if(term.equalsIgnoreCase("status")){
 				query += "status='" + category.getStatus() + "'";
 			}
