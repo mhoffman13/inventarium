@@ -146,9 +146,8 @@ public class ProductOverviewController {
 			if (response == Dialog.Actions.YES) {
 				DataRequest.removeRecord(selectedProduct);
 				productTable.getItems().remove(selectedIndex);
+				mainApp.updateInventoryData();
 			}
-			// else, do nothing
-	        
 	    } else {
 	        // Nothing selected.
 	        Dialogs.create()

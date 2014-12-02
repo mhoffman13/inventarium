@@ -66,7 +66,7 @@ public class Inventory {
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
-		this.productName = new SimpleStringProperty(name == null ? "No name" : name);
+		this.productName = new SimpleStringProperty(name == null ? "" : name);
 	}
 
 	public IntegerProperty uniqueIdProperty() {

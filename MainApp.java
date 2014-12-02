@@ -245,7 +245,6 @@ public class MainApp extends Application {
 			// Give the controller access to the main app.
 			InventoryOverviewController controller = loader.getController();
 			controller.setMainApp(this);
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -403,6 +402,19 @@ public class MainApp extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
+		}
+	}
+	
+	public void updateInventoryData(){
+		List<Inventory> inventoryList = new ArrayList<>();
+		try {
+			inventoryList = DataRequest.getAll(new Inventory());	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		inventoryData.clear();
+		for(Inventory i : inventoryList){
+			inventoryData.add(i);
 		}
 	}
 	
