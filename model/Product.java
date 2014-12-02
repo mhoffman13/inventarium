@@ -20,11 +20,11 @@ public class Product {
 	private final StringProperty status;
 	private final StringProperty description;
 	private final StringProperty sku;
-	private final StringProperty vendorName;
-	private final StringProperty categoryName;
 	private final IntegerProperty quantity;
 	private final IntegerProperty lowQuantity;
 	private final BooleanProperty isLow;
+	private final StringProperty vendorName;
+	private final StringProperty categoryName;
 	
 	private Vendor vendor;
 	private Category category;

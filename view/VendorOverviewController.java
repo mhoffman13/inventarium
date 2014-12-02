@@ -16,6 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import inventarium.MainApp;
 import inventarium.data.DataRequest;
+import inventarium.model.Product;
 import inventarium.model.Vendor;
 
 public class VendorOverviewController {
@@ -146,6 +147,11 @@ public class VendorOverviewController {
 			if (response == Dialog.Actions.YES) {
 				DataRequest.removeRecord(selectedVendor);
 				vendorTable.getItems().remove(selectedIndex);
+				for(Product p : mainApp.getProductData()){
+					if(p.getVendor() != null && p.getVendor().getUniqueId() == selectedVendor.getUniqueId()){
+						p.setVendorName(null);
+					}
+				}
 			}
 			// else, do nothing
 	        
