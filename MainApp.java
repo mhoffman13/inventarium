@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -407,14 +408,17 @@ public class MainApp extends Application {
 	
 	public void updateInventoryData(){
 		List<Inventory> inventoryList = new ArrayList<>();
+		String name = null;
+		inventoryData.clear();
 		try {
-			inventoryList = DataRequest.getAll(new Inventory());	
+			inventoryList = DataRequest.getAll(new Inventory());
+			for(Inventory i : inventoryList){
+				name = DataRequest.findProductName(i.getProductId());
+				i.setProductName(name);
+				inventoryData.add(i);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		inventoryData.clear();
-		for(Inventory i : inventoryList){
-			inventoryData.add(i);
 		}
 	}
 	

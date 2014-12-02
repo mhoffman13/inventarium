@@ -296,6 +296,18 @@ public class ProductEditDialogController {
 			}
 		}
 		
+		if(nameText.getText() != null && nameText.getText().length() > 100){
+			errorMessage += "Name must be less than 100 characters\n";
+		}
+		
+		if(descriptionText.getText() != null && descriptionText.getText().length() > 200){
+			errorMessage += "Description must be less than 200 characters\n";
+		}
+		
+		if(skuText.getText() != null && skuText.getText().length() > 100){
+			errorMessage += "Sku must be less than 100 characters\n";
+		}
+		
 		if (errorMessage.length() == 0) {
 			return true;
 		} else {

@@ -172,6 +172,17 @@ public class VendorEditDialogController {
 			errorMessage += "Name is required\n"; 
 		}
 		
+		errorMessage += checkLengths(nameText.getText(), 100, "Name");
+		errorMessage += checkLengths(descriptionText.getText(), 200, "Description");
+		errorMessage += checkLengths(nameText.getText(), 100, "Contact Name");
+		errorMessage += checkLengths(line1Text.getText(), 100, "Address Line 1");
+		errorMessage += checkLengths(line2Text.getText(), 100, "Address Line 2");
+		errorMessage += checkLengths(cityText.getText(), 100, "Address City");
+		errorMessage += checkLengths(stateText.getText(), 2, "Address State");
+		errorMessage += checkLengths(zipText.getText(), 5, "Address Zip");
+		errorMessage += checkLengths(phoneText.getText(), 12, "Phone");
+		errorMessage += checkLengths(emailText.getText(), 100, "Email");
+		
 		if (errorMessage.length() == 0) {
 			return true;
 		} else {
@@ -181,6 +192,14 @@ public class VendorEditDialogController {
 			.message(errorMessage)
 			.showError();
 			return false;
+		}
+	}
+	
+	private String checkLengths(String str, int maxLength, String msg){
+		if(str == null || str.length() <= maxLength){
+			return "";
+		}else{
+			return msg + " must be less than " + maxLength + "characters\n";
 		}
 	}
 }
