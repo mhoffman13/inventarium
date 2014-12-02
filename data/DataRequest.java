@@ -108,6 +108,9 @@ public final class DataRequest {
 		}
 	}
 	private static String sanitize(String input) {
+		if(input==null){
+			return input;
+		}
 		return input.replaceAll("'", "''");
 	}
 	public static boolean insertRecord( Vendor vend ) {
@@ -306,7 +309,7 @@ public final class DataRequest {
 			name = rs.getString("name");
 		else {
 			System.out.println("No name found for product id " + id);
-			name = "No name";
+			name = null;
 		}
 		stmt.close();
 		return name;
