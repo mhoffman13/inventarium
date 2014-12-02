@@ -150,6 +150,7 @@ public class VendorOverviewController {
 				for(Product p : mainApp.getProductData()){
 					if(p.getVendor() != null && p.getVendor().getUniqueId() == selectedVendor.getUniqueId()){
 						p.setVendorName(null);
+						p.setVendor(null);
 					}
 				}
 			}

@@ -118,6 +118,7 @@ public class CategoryOverviewController {
 				for(Product p : mainApp.getProductData()){
 					if(p.getCategory() != null && p.getCategory().getUniqueId() == selectedCategory.getUniqueId()){
 						p.setCategoryName(null);
+						p.setCategory(null);
 					}
 				}
 			}
