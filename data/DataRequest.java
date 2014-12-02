@@ -109,7 +109,7 @@ public final class DataRequest {
 	}
 	private static String sanitize(String input) {
 		if(input==null){
-			return input;
+			return "";
 		}
 		return input.replaceAll("'", "''");
 	}
