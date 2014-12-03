@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.application.Application;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -246,6 +245,7 @@ public class MainApp extends Application {
 			// Give the controller access to the main app.
 			InventoryOverviewController controller = loader.getController();
 			controller.setMainApp(this);
+			controller.setInventoryData(inventoryData, productData);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

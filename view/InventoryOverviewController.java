@@ -6,12 +6,24 @@ package inventarium.view;
  * @author Meredith Hoffman
  */
 
+import java.text.DateFormatSymbols;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
+
 import javafx.fxml.FXML;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import inventarium.MainApp;
 import inventarium.model.Inventory;
+import inventarium.model.Product;
 
 public class InventoryOverviewController {
 	@FXML
@@ -31,6 +43,13 @@ public class InventoryOverviewController {
 	private Label uniqueIdLabel;
 	@FXML
 	private Label adjLabel;
+	
+	@FXML
+	private BarChart<String, Integer> barChart;
+	@FXML
+	private CategoryAxis xAxis;
+    
+	private ObservableList<String> monthNames = FXCollections.observableArrayList();
 	
 	// Reference to the main application.
 	private MainApp mainApp;
@@ -59,6 +78,16 @@ public class InventoryOverviewController {
 	    // Listen for selection changes and show the product details when changed.
 		inventoryTable.getSelectionModel().selectedItemProperty().addListener(
 				(observable, oldValue, newValue) -> showInventoryDetails(newValue));
+		
+		/** 
+		 * Setup bar chart 
+		 * */
+		// Get an array with the English month names.
+        String[] months = DateFormatSymbols.getInstance(Locale.ENGLISH).getMonths();
+        // Convert it to a list and add it to our ObservableList of months.
+        monthNames.addAll(Arrays.asList(months));
+        // Assign the month names as categories for the horizontal axis.
+        xAxis.setCategories(monthNames);
 	}
 	
 	/**
@@ -95,29 +124,29 @@ public class InventoryOverviewController {
 		}
 	}
 	
-	/**
-	 * Called when the user clicks on the delete button.
-	 */
-	@FXML
-	private void handleDeleteProduct() {
+	// get list of products here too, to cycle through product list
+	// and sum inventory
+	public void setInventoryData(List<Inventory> inventories, List<Product> products) {
+		mainApp.updateInventoryData();
+		// Sum outbound inventory by month for each product
+		int[] monthCounter = new int[12];
+		Calendar cal = Calendar.getInstance();
+		for(Product p : products){
+			for(Inventory i : inventories){
+				if(i.getProductId() == p.getUniqueId() && i.getAdj() < 0){
+					cal.setTime(i.getDateDate());
+		            monthCounter[cal.get(Calendar.MONTH)] += -1*i.getAdj();
+				}
+			}
+		}
 
-	}
-	
-	/**
-	 * Called when the user clicks the new button. Opens a dialog to edit
-	 * details for a new product.
-	 */
-	@FXML
-	private void handleNewProduct() {
+        XYChart.Series<String, Integer> series = new XYChart.Series<>();
 
-	}
+        // Create a XYChart.Data object for each month. Add it to the series.
+        for (int i = 0; i < monthCounter.length; i++) {
+            series.getData().add(new XYChart.Data<>(monthNames.get(i), monthCounter[i]));
+        }
 
-	/**
-	 * Called when the user clicks the edit button. Opens a dialog to edit
-	 * details for the selected product.
-	 */
-	@FXML
-	private void handleEditProduct() {
-
-	}
+        barChart.getData().add(series);
+    }
 }

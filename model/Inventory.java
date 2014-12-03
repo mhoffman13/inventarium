@@ -25,6 +25,9 @@ public class Inventory {
 	private final StringProperty productName;
 	private final StringProperty date;
 	
+	private Date dateDate;
+	private int adj = 0;
+	
 	/** 
 	 * Default Constructor
 	 */
@@ -40,15 +43,28 @@ public class Inventory {
 	public Inventory(Integer adjustment, Integer productId, String productName) {
 		this.uniqueId = new SimpleIntegerProperty();
 		this.adjustment = new SimpleStringProperty(adjustment == null ? null : adjustment.toString());
+		this.adj = 0;
 		this.productId = new SimpleIntegerProperty(productId == null ? 0 : productId);
 		Calendar today = Calendar.getInstance();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy");
 		this.date = new SimpleStringProperty(dateFormat.format(today.getTime()));
-		this.productName = new SimpleStringProperty(productName);
+		this.dateDate = today.getTime();
+		if(productName != null && productName.length() == 0){
+			String name = null;
+			try{
+				name = DataRequest.findProductName(productId);
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+			this.productName = new SimpleStringProperty(name == null ? "" : name);
+		}else{
+			this.productName = new SimpleStringProperty(productName);
+		}
 	}
 
 	/**
 	 * Constructor with adjustment, product id, unique id, and date
+	 * (matches database data)
 	 * @param uniqueId
 	 * @param adjustment
 	 * @param productId
@@ -60,6 +76,8 @@ public class Inventory {
 		this.productId = new SimpleIntegerProperty(productId == null ? 0 : productId);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy");
 		this.date = new SimpleStringProperty(dateFormat.format(date));
+		this.adj = (adjustment == null ? 0 : adjustment);
+		this.dateDate = date;
 		String name = null;
 		try{
 			name = DataRequest.findProductName(uniqueId);
@@ -91,6 +109,7 @@ public class Inventory {
 
 	public void setAdjustment(int adjustment) {
 		this.adjustmentProperty().set(Integer.toString(adjustment));
+		this.adj = adjustment;
 	}
 
 	public IntegerProperty productIdProperty() {
@@ -128,4 +147,26 @@ public class Inventory {
 	public void setDate(String date) {
 		this.dateProperty().set(date);
 	}
+
+	/**
+	 * @return the dateDate
+	 */
+	public Date getDateDate() {
+		return dateDate;
+	}
+
+	/**
+	 * @param dateDate the dateDate to set
+	 */
+	public void setDateDate(Date dateDate) {
+		this.dateDate = dateDate;
+	}
+
+	/**
+	 * @return the adj
+	 */
+	public int getAdj() {
+		return adj;
+	}
+	
 }
